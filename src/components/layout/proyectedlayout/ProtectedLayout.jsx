@@ -31,6 +31,9 @@ export function ProtectedLayout() {
           Cargar Jugador
         </button>
         <button onClick={handleLogout}>Cerrar Sesión</button>
+        <button onClick={() => navigate("/AgregarJugadores")}>
+          Agregar Cliente
+        </button>
       </nav>
       <main>
         <Outlet />
