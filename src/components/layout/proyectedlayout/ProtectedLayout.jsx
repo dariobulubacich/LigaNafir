@@ -2,6 +2,7 @@ import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase"; // Importar Firebase auth
 import { signOut } from "firebase/auth";
 import Swal from "sweetalert2";
+import Grid from "@mui/material/Grid2";
 
 export function ProtectedLayout() {
   const navigate = useNavigate();
@@ -27,18 +28,21 @@ export function ProtectedLayout() {
   return (
     <div className="protected-layout">
       <nav className="menu">
-        <button onClick={() => navigate("/CargaJugadores")}>
-          Cargar Jugador
-        </button>
-        <button onClick={handleLogout}>Cerrar Sesión</button>
-        <button onClick={() => navigate("/AgregarJugadores")}>
-          Agregar Cliente
-        </button>
-      </nav>
-      <main>
         <Outlet />
-      </main>
-      <button>cargar todos los jugadores</button>
+        <Grid container={true}>
+          <Grid size={{ xs: 12 }} textAlign={"center"}>
+            <button onClick={() => navigate("/CargaJugadores")}>
+              Cargar Jugador
+            </button>
+            <button onClick={handleLogout}>Cerrar Sesión</button>
+            <button onClick={() => navigate("/AgregarJugadores")}>
+              Agregar Cliente
+            </button>
+            <main></main>
+            <button>cargar todos los jugadores</button>
+          </Grid>
+        </Grid>
+      </nav>
     </div>
   );
 }

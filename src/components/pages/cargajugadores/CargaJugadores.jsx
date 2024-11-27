@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { db } from "../../../firebase";
 import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import { getAuth } from "firebase/auth"; // Importar autenticación
 import Swal from "sweetalert2";
 import Grid from "@mui/material/Grid2";
 
@@ -11,17 +12,19 @@ function CargaJugadores() {
   const [club, setClub] = useState("");
   const [categoria, setCategoria] = useState("");
   const [numeroCamiseta, setNumeroCamiseta] = useState("");
+  const [numeroFecha, setNumeroFecha] = useState("");
   const [jugadorEncontrado, setJugadorEncontrado] = useState(null);
+
+  const auth = getAuth(); // Obtener instancia de autenticación
 
   const buscarJugador = async () => {
     try {
-      // Crear una consulta para buscar por el campo "carnet"
       const jugadoresRef = collection(db, "jugadores");
       const q = query(jugadoresRef, where("carnet", "==", carnet));
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
-        const jugador = querySnapshot.docs[0]; // Tomar el primer resultado
+        const jugador = querySnapshot.docs[0];
         const data = jugador.data();
 
         setJugadorEncontrado({ id: jugador.id, ...data });
@@ -29,12 +32,6 @@ function CargaJugadores() {
         setApellido(data.apellido);
         setClub(data.club);
         setCategoria(data.categoria);
-
-        // Swal.fire({
-        //   title: "Jugador encontrado",
-        //   text: `Nombre: ${data.nombre} ${data.apellido}`,
-        //   icon: "success",
-        //});
       } else {
         Swal.fire({
           title: "Jugador no encontrado",
@@ -53,31 +50,38 @@ function CargaJugadores() {
     }
   };
 
-  // Guardar número de camiseta en nueva colección
-  const guardarNumeroCamiseta = async (e) => {
+  const guardarDatos = async (e) => {
     e.preventDefault();
     if (!jugadorEncontrado) {
       Swal.fire({
         title: "Error",
-        text: "Busca un jugador antes de asignar el número de camiseta.",
+        text: "Busca un jugador antes de guardar los datos.",
         icon: "error",
       });
       return;
     }
 
     try {
-      await addDoc(collection(db, "camisetasAsignadas"), {
+      const usuarioActual = auth.currentUser
+        ? auth.currentUser.email
+        : "Anónimo";
+      const fechaGuardado = new Date();
+
+      await addDoc(collection(db, "fechasGuardadas"), {
         carnet,
         nombre,
         apellido,
         club,
         categoria,
         numeroCamiseta,
+        numeroFecha,
+        usuario: usuarioActual,
+        fechaGuardado: fechaGuardado.toISOString(),
       });
 
       Swal.fire({
-        title: "Número de camiseta asignado",
-        text: `Jugador: ${nombre} ${apellido}, Número: ${numeroCamiseta}`,
+        title: "Datos guardados correctamente",
+        text: `Jugador: ${nombre} ${apellido}, Fecha: ${numeroFecha}`,
         icon: "success",
       });
 
@@ -88,12 +92,13 @@ function CargaJugadores() {
       setClub("");
       setCategoria("");
       setNumeroCamiseta("");
+      setNumeroFecha("");
       setJugadorEncontrado(null);
     } catch (error) {
-      console.error("Error al guardar el número de camiseta: ", error);
+      console.error("Error al guardar los datos: ", error);
       Swal.fire({
         title: "Error",
-        text: "No se pudo guardar el número de camiseta.",
+        text: "No se pudieron guardar los datos.",
         icon: "error",
       });
     }
@@ -101,8 +106,8 @@ function CargaJugadores() {
 
   return (
     <Grid container={true}>
-      <Grid size={{ xs: 10 }} textAlign={"center"}>
-        <form className="form" onSubmit={guardarNumeroCamiseta}>
+      <Grid size={{ xs: 12 }} textAlign={"center"}>
+        <form className="form" onSubmit={guardarDatos}>
           <div className="form-containers">
             <Grid container={true}>
               <Grid
@@ -144,6 +149,7 @@ function CargaJugadores() {
                       background: "black",
                       border: "none",
                       cursor: "pointer",
+                      fontSize: "3rem",
                     }}
                     type="button"
                     className="buscar-button"
@@ -154,7 +160,6 @@ function CargaJugadores() {
                 </div>
               </Grid>
             </Grid>
-
             {jugadorEncontrado && (
               <>
                 <input
@@ -186,11 +191,6 @@ function CargaJugadores() {
                   disabled
                 />
                 <input
-                  style={{
-                    padding: "0.5rem",
-                    fontSize: "1rem",
-                    width: "10%",
-                  }}
                   className="inputs"
                   type="number"
                   placeholder="Número de camiseta"
@@ -198,18 +198,20 @@ function CargaJugadores() {
                   onChange={(e) => setNumeroCamiseta(e.target.value)}
                   required
                 />
+                <input
+                  className="inputs"
+                  type="number"
+                  placeholder="Número de Fecha"
+                  value={numeroFecha}
+                  onChange={(e) => setNumeroFecha(e.target.value)}
+                  required
+                />
               </>
             )}
           </div>
-          <div className="div-agre-client">
-            <button
-              style={{ padding: "0.5rem", fontSize: "1rem", width: "10%" }}
-              type="submit"
-              className="agregar-button"
-            >
-              Guardar
-            </button>
-          </div>
+          <button type="submit" className="agregar-button">
+            Guardar
+          </button>
         </form>
       </Grid>
     </Grid>

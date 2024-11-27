@@ -85,21 +85,31 @@ function Auth() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-            </div>
-            <div>
               <button
-                style={{ padding: "1rem", fontSize: "2rem", width: "100%" }}
-                type="submit"
-              >
-                {isLogin ? "Iniciar Sesión" : "Registrarse"}
-              </button>
-              <button
-                style={{ padding: "1rem", fontSize: "2rem", width: "100%" }}
+                style={{
+                  padding: "1rem",
+                  fontSize: "1.5rem",
+                  width: "30%",
+                  background: "blue",
+                }}
                 type="button"
                 className="show-password-button"
                 onClick={() => setShowPassword(!showPassword)} // Cambia el estado
               >
                 {showPassword ? "Ocultar" : "Mostrar"}
+              </button>
+            </div>
+            <div style={{ padding: "1rem" }}>
+              <button
+                style={{
+                  padding: "1rem",
+                  fontSize: "2rem",
+                  width: "100%",
+                  background: "blue",
+                }}
+                type="submit"
+              >
+                {isLogin ? "Iniciar Sesión" : "Registrarse"}
               </button>
             </div>
           </form>
