@@ -22,7 +22,7 @@ function Auth() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      Swal.fire("Inicio correcto");
+
       // alert("Inicio de sesión exitoso");
       navigate("/CargaJugadores"); // Redirige a la página deseada después de autenticarse
     } catch {
@@ -57,12 +57,18 @@ function Auth() {
 
   return (
     <Grid container={true}>
-      <Grid style={{ padding: "10rem" }} size={{ xs: 12 }}>
+      <Grid style={{ padding: "12rem" }} size={{ xs: 12 }}>
         <div className="auth-container">
-          <Typography variant="h1" style={{ color: "white" }}>
+          <Typography
+            variant="h1"
+            style={{ color: "white", fontSize: "8.5rem", width: "100%" }}
+          >
             Liga Nafir
           </Typography>
-          <Typography variant="h3" style={{ color: "white" }}>
+          <Typography
+            variant="h3"
+            style={{ width: "100%", color: "white", fontSize: "3.5rem" }}
+          >
             {isLogin ? "Iniciar Sesión" : "Registrarse"}
           </Typography>
           <form onSubmit={isLogin ? handleLogin : handleRegister}>
@@ -103,7 +109,7 @@ function Auth() {
               <button
                 style={{
                   padding: "1rem",
-                  fontSize: "2rem",
+                  fontSize: "2.5rem",
                   width: "100%",
                   background: "blue",
                 }}
@@ -113,10 +119,10 @@ function Auth() {
               </button>
             </div>
           </form>
-          <p style={{ color: "white", fontSize: "25px" }}>
+          <p style={{ color: "white", fontSize: "2rem" }}>
             {isLogin ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}{" "}
             <button
-              style={{ color: "white", fontSize: "25px" }}
+              style={{ color: "white", fontSize: "3rem" }}
               className="toggle-button"
               onClick={() => setIsLogin(!isLogin)}
             >
