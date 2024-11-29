@@ -122,6 +122,24 @@ function CargaJugadores() {
                 </div>
               </Grid>
             </Grid>
+            <Grid container={true}>
+              <Grid size={{ xs: 12 }} textAlign={"center"} padding={"1.5rem"}>
+                <input
+                  style={{
+                    padding: "1.5rem",
+                    fontSize: "1rem",
+                    width: "10%",
+                    textAlign: "center",
+                  }}
+                  className="inputs"
+                  type="number"
+                  placeholder="Nº Fecha"
+                  value={numeroFecha}
+                  onChange={(e) => setNumeroFecha(e.target.value)}
+                  required
+                />
+              </Grid>
+            </Grid>
             <div>
               <input
                 style={{
@@ -162,54 +180,114 @@ function CargaJugadores() {
             </Grid>
             {jugadorEncontrado && (
               <>
-                <input
-                  className="inputs"
-                  type="text"
-                  placeholder="Nombre"
-                  value={nombre}
-                  disabled
-                />
-                <input
-                  className="inputs"
-                  type="text"
-                  placeholder="Apellido"
-                  value={apellido}
-                  disabled
-                />
-                <input
-                  className="inputs"
-                  type="text"
-                  placeholder="Club"
-                  value={club}
-                  disabled
-                />
-                <input
-                  className="inputs"
-                  type="text"
-                  placeholder="Categoría"
-                  value={categoria}
-                  disabled
-                />
-                <input
-                  className="inputs"
-                  type="number"
-                  placeholder="Número de camiseta"
-                  value={numeroCamiseta}
-                  onChange={(e) => setNumeroCamiseta(e.target.value)}
-                  required
-                />
-                <input
-                  className="inputs"
-                  type="number"
-                  placeholder="Número de Fecha"
-                  value={numeroFecha}
-                  onChange={(e) => setNumeroFecha(e.target.value)}
-                  required
-                />
+                <Grid container={true}>
+                  <Grid
+                    size={{ xs: 12 }}
+                    textAlign={"center"}
+                    padding={"1.5rem"}
+                  >
+                    <input
+                      style={{
+                        width: "70%",
+                        textAlign: "center",
+                        color: "white",
+                        fontSize: "3rem",
+                        background: "none",
+                      }}
+                      className="inputs"
+                      type="text"
+                      placeholder="Nombre"
+                      value={nombre}
+                      disabled
+                    />
+                    <input
+                      style={{
+                        width: "70%",
+                        textAlign: "center",
+                        color: "white",
+                        fontSize: "3rem",
+                        background: "none",
+                      }}
+                      className="inputs"
+                      type="text"
+                      placeholder="Apellido"
+                      value={apellido}
+                      disabled
+                    />
+                    <input
+                      style={{
+                        width: "70%",
+                        textAlign: "center",
+                        color: "white",
+                        fontSize: "3rem",
+                        background: "none",
+                      }}
+                      className="inputs"
+                      type="text"
+                      placeholder="Club"
+                      value={club}
+                      disabled
+                    />
+                    <div>
+                      <input
+                        style={{
+                          width: "70%",
+                          textAlign: "center",
+                          color: "white",
+                          fontSize: "3rem",
+                          background: "none",
+                        }}
+                        className="inputs"
+                        type="text"
+                        placeholder="Categoría"
+                        value={categoria}
+                        disabled
+                      />
+                    </div>
+                    <Grid container={true}>
+                      <Grid
+                        size={{ xs: 12 }}
+                        textAlign={"center"}
+                        padding={"1.5rem"}
+                      >
+                        <input
+                          style={{
+                            width: "25%",
+                            textAlign: "center",
+                            color: "black",
+                            textDecoration: "white",
+                            background: "white",
+                            border: "none",
+                            cursor: "pointer",
+                            fontSize: "2.5rem",
+                            padding: "1rem",
+                          }}
+                          className="inputs"
+                          type="number"
+                          placeholder="Nº camiseta"
+                          value={numeroCamiseta}
+                          onChange={(e) => setNumeroCamiseta(e.target.value)}
+                          required
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
               </>
             )}
           </div>
-          <button type="submit" className="agregar-button">
+          <button
+            style={{
+              padding: "0.5rem",
+              color: "black",
+              background: "green",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "3rem",
+            }}
+            type="submit"
+            className="agregar-button"
+          >
             Guardar
           </button>
         </form>

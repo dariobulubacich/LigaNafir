@@ -30,16 +30,11 @@ export function ProtectedLayout() {
       <nav className="menu">
         <Outlet />
         <Grid container={true}>
-          <Grid size={{ xs: 12 }} textAlign={"center"}>
-            <button onClick={() => navigate("/CargaJugadores")}>
-              Cargar Jugador
+          <Grid size={{ xs: 12 }} textAlign={"center"} padding={"1.5rem"}>
+            <button onClick={handleLogout} style={{ fontSize: "1.5rem" }}>
+              Cerrar Sesión
             </button>
-            <button onClick={handleLogout}>Cerrar Sesión</button>
-            <button onClick={() => navigate("/AgregarJugadores")}>
-              Agregar Cliente
-            </button>
-            <main></main>
-            <button>cargar todos los jugadores</button>
+            {/* <button>cargar todos los jugadores</button> */}
           </Grid>
         </Grid>
       </nav>
