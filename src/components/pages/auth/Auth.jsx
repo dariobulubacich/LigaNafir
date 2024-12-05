@@ -4,11 +4,13 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth } from "../../../firebase"; // Asegúrate de importar `auth` correctamente
 import "./auth.css"; // Opcional: Archivo para estilos personalizados
 import Swal from "sweetalert2";
 import Grid from "@mui/material/Grid2";
 import { Typography } from "@mui/material";
+import { db } from "../../../firebase";
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true); // Estado para alternar entre Login y Register
@@ -18,40 +20,70 @@ function Auth() {
   const navigate = useNavigate(); // Hook para redirigir
 
   // Manejar el inicio de sesión
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-      // alert("Inicio de sesión exitoso");
-      navigate("/CargaJugadores"); // Redirige a la página deseada después de autenticarse
-    } catch {
+      // Guardar el rol del usuario en Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        role: "usuario", // Por defecto asignar el rol de "usuario"
+      });
+
+      Swal.fire(
+        "Registro exitoso",
+        "Usuario registrado exitosamente",
+        "success"
+      );
+      navigate("/CargaJugadores"); // Redirigir al cargar jugadores
+    } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Usuario o contraseña incorrecto",
-        text: "",
+        title: "Error en el registro",
+        text: error.message,
       });
-      // console.error("Error en el inicio de sesión: ", error.message);
-      // alert("Error: " + error.message);
     }
   };
 
   // Manejar el registro
-  const handleRegister = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Usuario registrado exitosamente");
-      navigate("/CargaJugadores"); // Redirige a la página deseada después del registro
-    } catch {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Consultar el rol del usuario desde Firestore
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.role === "administrador") {
+          navigate("/AdminDashboard"); // página del administrador
+        } else {
+          navigate("/CargaJugadores"); //  página del usuario
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Usuario no encontrado",
+          text: "El usuario no tiene rol asignado.",
+        });
+      }
+    } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-        footer: '<a href="#">Why do I have this issue?</a>',
+        title: "Error al iniciar sesión",
+        text: error.message,
       });
-      //   console.error("Error en el registro: ", error.message);
-      //   alert("Error: " + error.message);
     }
   };
 

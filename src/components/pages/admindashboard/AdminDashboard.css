@@ -1,0 +1,36 @@
+.admin-dashboard {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.admin-dashboard h1 {
+  text-align: center;
+  color: #eee8e8;
+}
+
+.admin-menu {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-menu button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.admin-menu button:hover {
+  background-color: #0056b3;
+}
+
+.admin-content {
+  text-align: center;
+  font-size: 1.5rem;
+}

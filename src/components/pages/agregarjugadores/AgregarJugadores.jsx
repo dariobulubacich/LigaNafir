@@ -3,7 +3,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import Swal from "sweetalert2";
 
-function CargaJugadores() {
+function AgregarJugadores() {
   const [carnet, setCarnet] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -107,4 +107,4 @@ function CargaJugadores() {
   );
 }
 
-export default CargaJugadores;
+export default AgregarJugadores;

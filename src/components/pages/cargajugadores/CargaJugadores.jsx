@@ -4,6 +4,7 @@ import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth"; // Importar autenticación
 import Swal from "sweetalert2";
 import Grid from "@mui/material/Grid2";
+import { Typography } from "@mui/material";
 
 function CargaJugadores() {
   const [carnet, setCarnet] = useState("");
@@ -107,27 +108,32 @@ function CargaJugadores() {
   return (
     <Grid container={true}>
       <Grid size={{ xs: 12 }} textAlign={"center"}>
-        <form className="form" onSubmit={guardarDatos}>
-          <div className="form-containers">
+        <form onSubmit={guardarDatos}>
+          <div>
             <Grid container={true}>
               <Grid
                 size={{ xs: 12 }}
                 textAlign={"center"}
-                padding={"0.5rem"}
                 fontSize={"3rem"}
                 color={"white"}
               >
                 <div>
-                  <h3>Ingrese numero Carnet</h3>
+                  <h3 style={{ fontSize: "6.5rem" }}>Carga de Jugadores</h3>
                 </div>
               </Grid>
             </Grid>
             <Grid container={true}>
               <Grid size={{ xs: 12 }} textAlign={"center"} padding={"1.5rem"}>
+                <Typography
+                  variant="h5"
+                  style={{ width: "100%", color: "white", fontSize: "2.5rem" }}
+                >
+                  <p>Nº de Fecha a jugar</p>
+                </Typography>
                 <input
                   style={{
                     padding: "1.5rem",
-                    fontSize: "1rem",
+                    fontSize: "1.5rem",
                     width: "10%",
                     textAlign: "center",
                   }}
@@ -141,6 +147,12 @@ function CargaJugadores() {
               </Grid>
             </Grid>
             <div>
+              <Typography
+                variant="h6"
+                style={{ width: "100%", color: "white", fontSize: "2.5rem" }}
+              >
+                <p>Nº de carnet</p>
+              </Typography>
               <input
                 style={{
                   padding: "2rem",
