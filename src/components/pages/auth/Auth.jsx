@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Para redirigir al usuario
+import { useNavigate } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth } from "../../../firebase"; // Asegúrate de importar `auth` correctamente
-import "./auth.css"; // Opcional: Archivo para estilos personalizados
+import { auth } from "../../../firebase";
+import "./auth.css";
 import Swal from "sweetalert2";
 import Grid from "@mui/material/Grid2";
 import { Typography } from "@mui/material";
@@ -17,7 +17,7 @@ function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
-  const navigate = useNavigate(); // Hook para redirigir
+  const navigate = useNavigate();
 
   // Manejar el inicio de sesión
   const handleRegister = async (e) => {
