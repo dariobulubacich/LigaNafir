@@ -1,4 +1,4 @@
-import "./adminDashboard.css";
+import "./AdminDashboard.css";
 const AdminDashboard = () => {
   return (
     <div>
