@@ -1,28 +1,25 @@
-import "./AdminDashboard.css";
-import { useNavigate } from "react-router-dom";
-
-function AdminDashboard() {
-  const navigate = useNavigate();
-
-  const Navigate = (path) => {
-    navigate(path);
-  };
-
+import "./admindashboard.css";
+const AdminDashboard = () => {
   return (
-    <div className="admin-dashboard">
-      <h1>Panel de Administración</h1>
-      <div className="admin-menu">
-        {/* <button onClick={() => handleNavigation("/CargarJugadores")}>
-          Cargar Jugadores
-        </button> */}
-        <button onClick={() => Navigate("/AdminDashboard")}>
-          Listar Jugadores
-        </button>
-        {/* <button onClick={() => handleNavigation("/AgregarJugadores")}>
-          Agregar Jugadores
-        </button> */}
+    <div>
+      <h1>Bienvenido al panel de administrador</h1>
+      <div>
+        <nav>
+          <ul className="ul-nav">
+            <li>
+              <a href="/agregarjugadores">Agregar Jugadores</a>
+            </li>
+            <li>
+              <a href="/listarjugadores">Listar Jugadores</a>
+            </li>
+            <li>
+              <a href="/cargajugadores">Carga Jugadores</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );
-}
+};
+
 export default AdminDashboard;

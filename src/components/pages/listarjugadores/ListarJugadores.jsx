@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
 import * as XLSX from "xlsx";
+import { useNavigate } from "react-router-dom";
 
 function ListarJugadores() {
   const [jugadores, setJugadores] = useState([]);
@@ -11,7 +12,7 @@ function ListarJugadores() {
   const [filterBy, setFilterBy] = useState("apellido");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
+  const navigate = useNavigate();
   // Función para obtener jugadores desde Firestore
   const fetchJugadores = async () => {
     try {
@@ -90,6 +91,10 @@ function ListarJugadores() {
   if (loading) {
     return <p>Cargando jugadores...</p>;
   }
+  // Función para navegar al AdminDashboard
+  const goToAdminDashboard = () => {
+    navigate("/admin-dashboard");
+  };
 
   return (
     <div className="listar-jugadores">
@@ -142,6 +147,10 @@ function ListarJugadores() {
             </button>
             <button className="button-export" onClick={printTable}>
               Imprimir
+            </button>
+
+            <button className="volver-button" onClick={goToAdminDashboard}>
+              Volver al Panel de Administrador
             </button>
           </div>
           <table id="jugadoresTable" className="jugadores-table">

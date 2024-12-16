@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function AgregarJugadores() {
@@ -10,6 +11,8 @@ function AgregarJugadores() {
   const [club, setClub] = useState("");
   const [categoria, setCategoria] = useState("");
   const [numeroCamiseta, setNumeroCamiseta] = useState("");
+
+  const navigate = useNavigate();
 
   // Función para enviar los datos a Firebase
   const handleSubmit = async (e) => {
@@ -47,63 +50,75 @@ function AgregarJugadores() {
     }
   };
 
+  // Función para navegar al AdminDashboard
+  const goToAdminDashboard = () => {
+    navigate("/admin-dashboard");
+  };
+
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="form-containers">
-        <input
-          className="inputs"
-          type="text"
-          placeholder="Nº de carnet"
-          value={carnet}
-          onChange={(e) => setCarnet(e.target.value)}
-          required
-        />
-        <input
-          className="inputs"
-          type="text"
-          placeholder="Nombre"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          required
-        />
-        <input
-          className="inputs"
-          type="text"
-          placeholder="Apellido"
-          value={apellido}
-          onChange={(e) => setApellido(e.target.value)}
-          required
-        />
-        <input
-          className="inputs"
-          type="text"
-          placeholder="Club"
-          value={club}
-          onChange={(e) => setClub(e.target.value)}
-          required
-        />
-        <input
-          className="inputs"
-          type="text"
-          placeholder="Categoría"
-          value={categoria}
-          onChange={(e) => setCategoria(e.target.value)}
-          required
-        />
-        <input
-          className="inputs"
-          type="number"
-          placeholder="Número de camiseta (opcional)"
-          value={numeroCamiseta}
-          onChange={(e) => setNumeroCamiseta(e.target.value)}
-        />
-      </div>
-      <div className="div-agre-client">
-        <button type="submit" className="agregar-button">
-          Agregar Jugador
+    <div>
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="form-containers">
+          <input
+            className="inputs"
+            type="text"
+            placeholder="Nº de carnet"
+            value={carnet}
+            onChange={(e) => setCarnet(e.target.value)}
+            required
+          />
+          <input
+            className="inputs"
+            type="text"
+            placeholder="Nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
+          />
+          <input
+            className="inputs"
+            type="text"
+            placeholder="Apellido"
+            value={apellido}
+            onChange={(e) => setApellido(e.target.value)}
+            required
+          />
+          <input
+            className="inputs"
+            type="text"
+            placeholder="Club"
+            value={club}
+            onChange={(e) => setClub(e.target.value)}
+            required
+          />
+          <input
+            className="inputs"
+            type="text"
+            placeholder="Categoría"
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+            required
+          />
+          <input
+            className="inputs"
+            type="number"
+            placeholder="Número de camiseta (opcional)"
+            value={numeroCamiseta}
+            onChange={(e) => setNumeroCamiseta(e.target.value)}
+          />
+        </div>
+        <div className="div-agre-client">
+          <button type="submit" className="agregar-button">
+            Agregar Jugador
+          </button>
+        </div>
+      </form>
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <button className="volver-button" onClick={goToAdminDashboard}>
+          Volver al Panel de Administrador
         </button>
       </div>
-    </form>
+    </div>
   );
 }
 
