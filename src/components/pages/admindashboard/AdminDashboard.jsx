@@ -7,7 +7,7 @@ const AdminDashboard = () => {
         <nav>
           <ul className="ul-nav">
             <li>
-              <a href="/agregarjugadores">Agregar Jugadores</a>
+              <a href="/AgregarJugadores">Agregar Jugadores</a>
             </li>
             <li>
               <a href="/listarjugadores">Listar Jugadores</a>

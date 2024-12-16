@@ -9,8 +9,8 @@ const Navbar = () => {
     <div>
       <div>
         <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        {user.rol === "admin" && <Link to="/dashboard">Dashboard</Link>}
+        <Link to="/auth">Login</Link>
+        {user.rol === "admin" && <Link to="admin-dashboard">Dashboard</Link>}
       </div>
       <Outlet />
     </div>
