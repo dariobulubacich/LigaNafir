@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function AdminDashboard() {
   const navigate = useNavigate();
 
-  const handleNavigation = (path) => {
+  const Navigate = (path) => {
     navigate(path);
   };
 
@@ -12,15 +12,15 @@ function AdminDashboard() {
     <div className="admin-dashboard">
       <h1>Panel de Administración</h1>
       <div className="admin-menu">
-        <button onClick={() => handleNavigation("/CargarJugadores")}>
+        {/* <button onClick={() => handleNavigation("/CargarJugadores")}>
           Cargar Jugadores
-        </button>
-        <button onClick={() => handleNavigation("/ListarJugadores")}>
+        </button> */}
+        <button onClick={() => Navigate("/AdminDashboard")}>
           Listar Jugadores
         </button>
-        <button onClick={() => handleNavigation("/AgregarJugadores")}>
+        {/* <button onClick={() => handleNavigation("/AgregarJugadores")}>
           Agregar Jugadores
-        </button>
+        </button> */}
       </div>
     </div>
   );
