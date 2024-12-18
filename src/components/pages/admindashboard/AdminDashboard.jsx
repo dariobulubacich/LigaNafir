@@ -1,5 +1,3 @@
-import "./admindashboard.css";
-
 const AdminDashboard = () => {
   return (
     <div>
