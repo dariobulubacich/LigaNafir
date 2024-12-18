@@ -5,6 +5,7 @@ import AgregarJugadores from "./components/pages/agregarjugadores/AgregarJugador
 import CargaJugadores from "./components/pages/cargajugadores/CargaJugadores";
 import ListarJugadores from "./components/pages/listarjugadores/ListarJugadores";
 import Carnets from "./components/pages/carnets/Carnets";
+import BuscarModificarJugadores from "./components/pages/buscarjugadores/BuscarJugadores";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/CargaJugadores" element={<CargaJugadores />} />{" "}
         <Route path="/ListarJugadores" element={<ListarJugadores />} />{" "}
         <Route path="/Carnets" element={<Carnets />} />{" "}
+        <Route path="/BuscarJugadores" element={<BuscarModificarJugadores />} />{" "}
       </Routes>
     </BrowserRouter>
   );

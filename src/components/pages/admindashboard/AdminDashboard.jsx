@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./admindashboard.css";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -9,21 +10,28 @@ const AdminDashboard = () => {
         <nav>
           <ul className="ul-nav">
             <li>
-              <a href="/agregarjugadores">Agregar Jugadores</a>
-            </li>
-            <li>
-              <a href="/listarjugadores">Listar Jugadores</a>
-            </li>
-            <li>
-              <a href="/cargajugadores">Carga Jugadores</a>
-            </li>
-            {/* <li>
-              <a href="/carnets">Carnets</a>
-            </li> */}
-            <li>
-              <button onClick={() => navigate("/Carnets")}>
-                Para Clientes
+              <button onClick={() => navigate("/AgregarJugadores")}>
+                Agregar Jugadores
               </button>
+            </li>
+            <li>
+              <button onClick={() => navigate("/ListarJugadores")}>
+                Listar Jugadores
+              </button>
+            </li>
+            <li>
+              <button onClick={() => navigate("/BuscarJugadores")}>
+                Buscar Jugadores
+              </button>
+            </li>
+
+            <li>
+              <button onClick={() => navigate("/CargaJugadores")}>
+                Carga Jugadores
+              </button>
+            </li>
+            <li>
+              <button onClick={() => navigate("/Carnets")}>Carnets</button>
             </li>
           </ul>
         </nav>

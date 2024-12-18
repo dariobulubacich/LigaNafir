@@ -11,6 +11,7 @@ function AgregarJugadores() {
   const [club, setClub] = useState("");
   const [categoria, setCategoria] = useState("");
   const [numeroCamiseta, setNumeroCamiseta] = useState("");
+  const [habilitado, setHabilitado] = useState("true"); // Estado para la condición
 
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ function AgregarJugadores() {
         club,
         categoria,
         numeroCamiseta,
+        habilitado: habilitado === "true", // Guardar como booleano
       });
       Swal.fire({
         title: "Jugador agregado exitosamente",
@@ -40,6 +42,7 @@ function AgregarJugadores() {
       setClub("");
       setCategoria("");
       setNumeroCamiseta("");
+      setHabilitado("true"); // Resetear habilitado
     } catch (error) {
       console.error("Error al agregar el jugador: ", error);
       Swal.fire({
@@ -106,6 +109,17 @@ function AgregarJugadores() {
             value={numeroCamiseta}
             onChange={(e) => setNumeroCamiseta(e.target.value)}
           />
+          <label>
+            <strong>Condición:</strong>
+          </label>
+          <select
+            className="inputs"
+            value={habilitado}
+            onChange={(e) => setHabilitado(e.target.value)}
+          >
+            <option value="true">Habilitado</option>
+            <option value="false">Inhabilitado</option>
+          </select>
         </div>
         <div className="div-agre-client">
           <button type="submit" className="agregar-button">
