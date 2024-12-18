@@ -4,6 +4,7 @@ import AdminDashboard from "./components/pages/admindashboard/AdminDashboard";
 import AgregarJugadores from "./components/pages/agregarjugadores/AgregarJugadores";
 import CargaJugadores from "./components/pages/cargajugadores/CargaJugadores";
 import ListarJugadores from "./components/pages/listarjugadores/ListarJugadores";
+import Carnets from "./components/pages/carnets/Carnets";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/Agregarjugadores" element={<AgregarJugadores />} />{" "}
         <Route path="/CargaJugadores" element={<CargaJugadores />} />{" "}
         <Route path="/ListarJugadores" element={<ListarJugadores />} />{" "}
+        <Route path="/Carnets" element={<Carnets />} />{" "}
       </Routes>
     </BrowserRouter>
   );

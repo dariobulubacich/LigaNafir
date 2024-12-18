@@ -14,6 +14,9 @@ const AdminDashboard = () => {
             <li>
               <a href="/cargajugadores">Carga Jugadores</a>
             </li>
+            <li>
+              <a href="/carnets">Carnets</a>
+            </li>
           </ul>
         </nav>
       </div>
