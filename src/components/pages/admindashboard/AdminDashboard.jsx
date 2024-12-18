@@ -1,4 +1,5 @@
-import "../admindashboard/admindashboard.css";
+import "./admindashboard.css";
+
 const AdminDashboard = () => {
   return (
     <div>
@@ -7,7 +8,7 @@ const AdminDashboard = () => {
         <nav>
           <ul className="ul-nav">
             <li>
-              <a href="/AgregarJugadores">Agregar Jugadores</a>
+              <a href="/agregarjugadores">Agregar Jugadores</a>
             </li>
             <li>
               <a href="/listarjugadores">Listar Jugadores</a>
