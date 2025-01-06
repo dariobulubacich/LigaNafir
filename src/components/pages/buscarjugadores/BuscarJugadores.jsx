@@ -38,7 +38,7 @@ function BuscarModificarJugadores() {
       } else {
         const jugadorData = querySnapshot.docs[0];
         setJugador({ id: jugadorData.id, ...jugadorData.data() });
-        setHabilitado(jugadorData.data().habilitado); // Cargar el estado actual
+        setHabilitado(jugadorData.data().habilitado ? "true" : "false"); // Convertir a string para el select
       }
     } catch (error) {
       console.error("Error al buscar el jugador: ", error);
@@ -56,12 +56,13 @@ function BuscarModificarJugadores() {
 
     try {
       const jugadorRef = doc(db, "jugadores", jugador.id);
-      await updateDoc(jugadorRef, { habilitado: habilitado === "true" });
+      const nuevoEstado = habilitado === "true"; // Convertir de string a booleano
+      await updateDoc(jugadorRef, { habilitado: nuevoEstado });
 
       Swal.fire({
         title: "Jugador actualizado",
         text: `El jugador ha sido ${
-          habilitado === "true" ? "habilitado" : "inhabilitado"
+          nuevoEstado ? "habilitado" : "inhabilitado"
         } exitosamente.`,
         icon: "success",
       });
@@ -78,6 +79,7 @@ function BuscarModificarJugadores() {
       });
     }
   };
+
   // Función para navegar al AdminDashboard
   const goToAdminDashboard = () => {
     navigate("/admin-dashboard");
@@ -106,6 +108,10 @@ function BuscarModificarJugadores() {
         <div className="jugador-info">
           <h3>Información del jugador:</h3>
           <p>
+            <strong>Condición:</strong> {jugador.condicion}
+            {/* Campo agregado */}
+          </p>
+          <p>
             <strong>Nombre:</strong> {jugador.nombre}
           </p>
           <p>
@@ -114,11 +120,6 @@ function BuscarModificarJugadores() {
           <p>
             <strong>Club:</strong> {jugador.club}
           </p>
-          <p>
-            <strong>Condición actual:</strong>{" "}
-            {jugador.habilitado ? "Habilitado" : "Inhabilitado"}
-          </p>
-
           <div className="modificar-container">
             <label>
               <strong>Modificar condición:</strong>

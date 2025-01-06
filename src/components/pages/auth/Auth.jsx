@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { auth, db } from "../../../firebase"; // Importa tu configuración de Firebase
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword, updatePassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Grid from "@mui/material/Grid2";
@@ -14,7 +11,8 @@ import "./auth.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isRegister, setIsRegister] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -23,59 +21,67 @@ const Login = () => {
     setError("");
 
     try {
-      if (isRegister) {
-        // Registro de usuario
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        const user = userCredential.user;
+      // Inicio de sesión
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-        // Guardar datos en Firestore
-        await setDoc(doc(db, "users", user.uid), {
-          email: user.email,
-          role: "user", // Rol predeterminado
-        });
-
-        //alert("Usuario registrado correctamente");
-        Swal.fire(
-          "Registro exitoso",
-          "Usuario registrado exitosamente",
-          "success"
-        );
-        navigate("/cargajugadores"); // Redirigir al panel del usuario registrado
-      } else {
-        // Inicio de sesión
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        const user = userCredential.user;
-
-        // Obtener rol desde Firestore
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          const role = userDoc.data().role;
-
-          // Redirigir según el rol
-          if (role === "admin") {
-            navigate("/admin-dashboard"); // Redirigir al navbar de admin
-          } else {
-            navigate("/cargajugadores"); // Redirigir al dashboard de usuario
-          }
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const role = userDoc.data().role;
+        if (role === "admin") {
+          navigate("/admin-dashboard");
         } else {
-          throw new Error("El usuario no tiene datos asociados en Firestore");
+          navigate("/cargajugadores");
         }
+      } else {
+        throw new Error("El usuario no tiene datos asociados en Firestore");
       }
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Error al iniciar sesión",
+        title: "Error",
         text: error.message,
       });
-      //setError("Error: " + error.message);
+    }
+  };
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+
+    if (!newPassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Debes ingresar una nueva contraseña.",
+      });
+      return;
+    }
+
+    try {
+      const user = auth.currentUser;
+
+      if (user) {
+        await updatePassword(user, newPassword);
+        Swal.fire({
+          icon: "success",
+          title: "Éxito",
+          text: "Contraseña actualizada correctamente.",
+        });
+        setNewPassword("");
+        setShowChangePassword(false);
+      } else {
+        throw new Error("No se pudo autenticar al usuario.");
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error al cambiar contraseña",
+        text: error.message,
+      });
     }
   };
 
@@ -93,7 +99,7 @@ const Login = () => {
             variant="h3"
             style={{ width: "100%", color: "white", fontSize: "3.5rem" }}
           >
-            {isRegister ? "Registro" : "Inicio de Sesión"}
+            Inicio de Sesión
           </Typography>
           <form onSubmit={handleSubmit}>
             <div>
@@ -128,21 +134,53 @@ const Login = () => {
                 }}
                 type="submit"
               >
-                {isRegister ? "Registrar" : "Iniciar Sesión"}
+                Iniciar Sesión
               </button>
             </div>
           </form>
           {error && <p style={{ color: "red" }}>{error}</p>}
+
           <p style={{ color: "white", fontSize: "2rem" }}>
-            {isRegister ? "¿Ya tienes una cuenta?" : "¿No tienes una cuenta?"}{" "}
+            ¿Olvidaste tu contraseña?{" "}
             <button
-              style={{ color: "white", fontSize: "3rem" }}
-              className="toggle-button"
-              onClick={() => setIsRegister(!isRegister)}
+              style={{ color: "white", fontSize: "2rem" }}
+              onClick={() => setShowChangePassword(!showChangePassword)}
             >
-              {isRegister ? "Inicia sesión" : "Regístrate"}
+              Cambiar contraseña
             </button>
           </p>
+
+          {showChangePassword && (
+            <form onSubmit={handleChangePassword}>
+              <div className="password-container">
+                <input
+                  style={{
+                    padding: "0.5rem",
+                    fontSize: "2rem",
+                    width: "100%",
+                  }}
+                  type="password"
+                  placeholder="Nueva contraseña"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div style={{ padding: "1rem" }}>
+                <button
+                  style={{
+                    padding: "1rem",
+                    fontSize: "2.5rem",
+                    width: "100%",
+                    background: "green",
+                  }}
+                  type="submit"
+                >
+                  Cambiar Contraseña
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </Grid>
     </Grid>

@@ -3,7 +3,7 @@ import Auth from "./components/pages/auth/Auth";
 import AdminDashboard from "./components/pages/admindashboard/AdminDashboard";
 import AgregarJugadores from "./components/pages/agregarjugadores/AgregarJugadores";
 import CargaJugadores from "./components/pages/cargajugadores/CargaJugadores";
-import ListarJugadores from "./components/pages/listarjugadores/ListarJugadores";
+import ListarJugadores from "./components/pages/listados/ListarJugadores";
 import Carnets from "./components/pages/carnets/Carnets";
 import BuscarModificarJugadores from "./components/pages/buscarjugadores/BuscarJugadores";
 
