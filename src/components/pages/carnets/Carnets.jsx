@@ -93,7 +93,7 @@ const Carnets = () => {
       </div>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <button className="volver-button" onClick={goToAdminDashboard}>
-          Volver al Panel de Administrador
+          Volver al Panel de Admini
         </button>
       </div>
 
