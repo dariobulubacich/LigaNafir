@@ -87,9 +87,9 @@ const Login = () => {
 
   return (
     <div className="div-liga">
-      Liga Nafir
+      <p style={{ fontSize: "2.5rem" }}>Liga Nafir</p>
       <div className="parrafo-iniciosesion">
-        <p style={{ fontSize: "2.5rem" }}>Inicio de Sesión</p>
+        <p style={{ fontSize: "1.5rem" }}>Inicio de Sesión</p>
       </div>
       <form onSubmit={handleSubmit}>
         <div>
