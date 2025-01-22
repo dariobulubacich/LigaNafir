@@ -3,8 +3,8 @@ import { db } from "../../../firebase";
 import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth"; // Importar autenticación
 import Swal from "sweetalert2";
-import Grid from "@mui/material/Grid2";
-import { Typography } from "@mui/material";
+// import Grid from "@mui/material/Grid2";
+// import { Typography } from "@mui/material";
 
 function CargaJugadores() {
   const [carnet, setCarnet] = useState("");
@@ -13,6 +13,7 @@ function CargaJugadores() {
   const [club, setClub] = useState("");
   const [categoria, setCategoria] = useState("");
   const [numeroCamiseta, setNumeroCamiseta] = useState("");
+  const [condicion, setCondicion] = useState("");
   const [numeroFecha, setNumeroFecha] = useState("");
   const [jugadorEncontrado, setJugadorEncontrado] = useState(null);
 
@@ -32,6 +33,7 @@ function CargaJugadores() {
         setNombre(data.nombre);
         setApellido(data.apellido);
         setClub(data.club);
+        setCondicion(data.condicion);
         setCategoria(data.categoria);
       } else {
         Swal.fire({
@@ -73,6 +75,7 @@ function CargaJugadores() {
         nombre,
         apellido,
         club,
+        condicion,
         categoria,
         numeroCamiseta,
         numeroFecha,
@@ -91,6 +94,7 @@ function CargaJugadores() {
       setNombre("");
       setApellido("");
       setClub("");
+      setCondicion("");
       setCategoria("");
       setNumeroCamiseta("");
       setNumeroFecha("");
@@ -106,205 +110,231 @@ function CargaJugadores() {
   };
 
   return (
-    <Grid container={true}>
-      <Grid size={{ xs: 12 }} textAlign={"center"}>
-        <form onSubmit={guardarDatos}>
-          <div>
-            <Grid container={true}>
+    // <Grid container={true}>
+    //   <Grid size={{ xs: 12 }} textAlign={"center"}>
+    <form onSubmit={guardarDatos}>
+      <div>
+        {/* <Grid container={true}>
               <Grid
                 size={{ xs: 12 }}
                 textAlign={"center"}
                 fontSize={"3rem"}
                 color={"white"}
-              >
-                <div>
-                  <h3 style={{ fontSize: "6.5rem" }}>Carga de Jugadores</h3>
-                </div>
-              </Grid>
+              > */}
+        <div>
+          <h3 style={{ fontSize: "6.5rem" }}>Carga de Jugadores</h3>
+        </div>
+        {/* </Grid>
             </Grid>
             <Grid container={true}>
               <Grid size={{ xs: 12 }} textAlign={"center"} padding={"1.5rem"}>
                 <Typography
                   variant="h5"
                   style={{ width: "100%", color: "white", fontSize: "2.5rem" }}
-                >
-                  <p>Nº de Fecha a jugar</p>
-                </Typography>
-                <input
-                  style={{
-                    padding: "1.5rem",
-                    fontSize: "1.5rem",
-                    width: "10%",
-                    textAlign: "center",
-                  }}
-                  className="inputs"
-                  type="number"
-                  placeholder="Nº Fecha"
-                  value={numeroFecha}
-                  onChange={(e) => setNumeroFecha(e.target.value)}
-                  required
-                />
-              </Grid>
-            </Grid>
-            <div>
-              <Typography
+                > */}
+        <p>Nº de Fecha a jugar</p>
+        {/* </Typography> */}
+        <input
+          // style={{
+          //   padding: "1.5rem",
+          //   fontSize: "1.5rem",
+          //   width: "10%",
+          //   textAlign: "center",
+          // }}
+          className="inputs"
+          type="number"
+          placeholder="Nº Fecha"
+          value={numeroFecha}
+          onChange={(e) => setNumeroFecha(e.target.value)}
+          required
+        />
+        {/* </Grid>
+            </Grid> */}
+        <div>
+          {/* <Typography
                 variant="h6"
                 style={{ width: "100%", color: "white", fontSize: "2.5rem" }}
-              >
-                <p>Nº de carnet</p>
-              </Typography>
-              <input
-                style={{
-                  padding: "2rem",
-                  fontSize: "2.5rem",
-                  width: "15%",
-                  textAlign: "center",
-                }}
-                className="inputs"
-                type="text"
-                placeholder=""
-                value={carnet}
-                onChange={(e) => setCarnet(e.target.value)}
-                required
-              />
-            </div>
-            <Grid container={true}>
-              <Grid size={{ xs: 12 }} textAlign={"center"} padding={"1.5rem"}>
-                <div>
-                  <button
-                    style={{
-                      padding: "0.5rem",
-                      color: "white",
-                      textDecoration: "white",
-                      background: "black",
-                      border: "none",
-                      cursor: "pointer",
-                      fontSize: "3rem",
-                    }}
-                    type="button"
-                    className="buscar-button"
-                    onClick={buscarJugador}
-                  >
-                    Buscar Jugador
-                  </button>
-                </div>
-              </Grid>
-            </Grid>
-            {jugadorEncontrado && (
-              <>
-                <Grid container={true}>
+              > */}
+          <p>Nº de carnet</p>
+          {/* </Typography> */}
+          <input
+            // style={{
+            //   padding: "2rem",
+            //   fontSize: "2.5rem",
+            //   width: "15%",
+            //   textAlign: "center",
+            // }}
+            className="inputs"
+            type="text"
+            placeholder=""
+            value={carnet}
+            onChange={(e) => setCarnet(e.target.value)}
+            required
+          />
+        </div>
+        {/* <Grid container={true}>
+              <Grid size={{ xs: 12 }} textAlign={"center"} padding={"1.5rem"}> */}
+        <div>
+          <button
+            // style={{
+            //   padding: "0.5rem",
+            //   color: "white",
+            //   textDecoration: "white",
+            //   background: "black",
+            //   border: "none",
+            //   cursor: "pointer",
+            //   fontSize: "3rem",
+            // }}
+            type="button"
+            className="buscar-button"
+            onClick={buscarJugador}
+          >
+            Buscar Jugador
+          </button>
+        </div>
+        {/* </Grid>
+            </Grid> */}
+        {jugadorEncontrado && (
+          <>
+            {/* <Grid container={true}>
                   <Grid
                     size={{ xs: 12 }}
                     textAlign={"center"}
                     padding={"1.5rem"}
-                  >
-                    <input
-                      style={{
-                        width: "70%",
-                        textAlign: "center",
-                        color: "white",
-                        fontSize: "3rem",
-                        background: "none",
-                      }}
-                      className="inputs"
-                      type="text"
-                      placeholder="Nombre"
-                      value={nombre}
-                      disabled
-                    />
-                    <input
-                      style={{
-                        width: "70%",
-                        textAlign: "center",
-                        color: "white",
-                        fontSize: "3rem",
-                        background: "none",
-                      }}
-                      className="inputs"
-                      type="text"
-                      placeholder="Apellido"
-                      value={apellido}
-                      disabled
-                    />
-                    <input
-                      style={{
-                        width: "70%",
-                        textAlign: "center",
-                        color: "white",
-                        fontSize: "3rem",
-                        background: "none",
-                      }}
-                      className="inputs"
-                      type="text"
-                      placeholder="Club"
-                      value={club}
-                      disabled
-                    />
-                    <div>
-                      <input
-                        style={{
-                          width: "70%",
-                          textAlign: "center",
-                          color: "white",
-                          fontSize: "3rem",
-                          background: "none",
-                        }}
-                        className="inputs"
-                        type="text"
-                        placeholder="Categoría"
-                        value={categoria}
-                        disabled
-                      />
-                    </div>
-                    <Grid container={true}>
+                  > */}
+            <input
+              // style={{
+              //   width: "70%",
+              //   textAlign: "center",
+              //   color: "white",
+              //   fontSize: "3rem",
+              //   background: "none",
+              // }}
+              className="inputs"
+              type="text"
+              placeholder="Nombre"
+              value={nombre}
+              disabled
+            />
+            <input
+              // style={{
+              //   width: "70%",
+              //   textAlign: "center",
+              //   color: "white",
+              //   fontSize: "3rem",
+              //   background: "none",
+              // }}
+              className="inputs"
+              type="text"
+              placeholder="Apellido"
+              value={apellido}
+              disabled
+            />
+            <input
+              // style={{
+              //   width: "70%",
+              //   textAlign: "center",
+              //   color: "white",
+              //   fontSize: "3rem",
+              //   background: "none",
+              // }}
+              className="inputs"
+              type="text"
+              placeholder="Club"
+              value={club}
+              disabled
+            />
+
+            <div>
+              <input
+                // style={{
+                //   width: "70%",
+                //   textAlign: "center",
+                //   color: "white",
+                //   fontSize: "3rem",
+                //   background: "none",
+                // }}
+                className="inputs"
+                type="text"
+                placeholder="Categoría"
+                value={categoria}
+                disabled
+              />
+              <div className="habilitado">
+                <p
+                // style={{
+                //   color: "white",
+                //   background: "none",
+                //   fontSize: "2rem",
+                // }}
+                >
+                  Habilitado:
+                </p>
+                <input
+                  // style={{
+                  //   width: "70%",
+                  //   textAlign: "center",
+                  //   color: "white",
+                  //   fontSize: "3rem",
+                  //   background: "none",
+                  // }}
+                  className="inputs"
+                  type="text"
+                  placeholder="Condicion"
+                  value={condicion}
+                  disabled
+                />
+              </div>
+            </div>
+            {/* <Grid container={true}>
                       <Grid
                         size={{ xs: 12 }}
                         textAlign={"center"}
                         padding={"1.5rem"}
-                      >
-                        <input
-                          style={{
-                            width: "25%",
-                            textAlign: "center",
-                            color: "black",
-                            textDecoration: "white",
-                            background: "white",
-                            border: "none",
-                            cursor: "pointer",
-                            fontSize: "2.5rem",
-                            padding: "1rem",
-                          }}
-                          className="inputs"
-                          type="number"
-                          placeholder="Nº camiseta"
-                          value={numeroCamiseta}
-                          onChange={(e) => setNumeroCamiseta(e.target.value)}
-                          required
-                        />
-                      </Grid>
+                      > */}
+            <input
+              // style={{
+              //   width: "25%",
+              //   textAlign: "center",
+              //   color: "black",
+              //   textDecoration: "white",
+              //   background: "white",
+              //   border: "none",
+              //   cursor: "pointer",
+              //   fontSize: "2.5rem",
+              //   padding: "1rem",
+              // }}
+              className="inputs"
+              type="number"
+              placeholder="Nº camiseta"
+              value={numeroCamiseta}
+              onChange={(e) => setNumeroCamiseta(e.target.value)}
+              required
+            />
+            {/* </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </>
-            )}
-          </div>
-          <button
-            style={{
-              padding: "0.5rem",
-              color: "black",
-              background: "green",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "3rem",
-            }}
-            type="submit"
-            className="agregar-button"
-          >
-            Guardar
-          </button>
-        </form>
-      </Grid>
-    </Grid>
+                </Grid> */}
+          </>
+        )}
+      </div>
+      <button
+        // style={{
+        //   padding: "0.5rem",
+        //   color: "black",
+        //   background: "green",
+        //   border: "none",
+        //   cursor: "pointer",
+        //   fontSize: "3rem",
+        // }}
+        type="submit"
+        className="agregar-button"
+      >
+        Guardar
+      </button>
+    </form>
+    //   </Grid>
+    // </Grid>
   );
 }
 

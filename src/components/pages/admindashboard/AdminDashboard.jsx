@@ -33,6 +33,11 @@ const AdminDashboard = () => {
             <li>
               <button onClick={() => navigate("/Carnets")}>Carnets</button>
             </li>
+            <li>
+              <button onClick={() => navigate("/RegisterUser")}>
+                Registrar Usuarios
+              </button>
+            </li>
           </ul>
         </nav>
       </div>

@@ -14,12 +14,14 @@ import { useNavigate } from "react-router-dom";
 function BuscarModificarJugadores() {
   const [carnet, setCarnet] = useState("");
   const [jugador, setJugador] = useState(null);
-  const [habilitado, setHabilitado] = useState("");
+  const [condicion, setCondicion] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // Función para buscar jugador por carnet
   const handleBuscar = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const q = query(
@@ -38,7 +40,7 @@ function BuscarModificarJugadores() {
       } else {
         const jugadorData = querySnapshot.docs[0];
         setJugador({ id: jugadorData.id, ...jugadorData.data() });
-        setHabilitado(jugadorData.data().habilitado ? "true" : "false"); // Convertir a string para el select
+        setCondicion(jugadorData.data().habilitado ? "true" : "false");
       }
     } catch (error) {
       console.error("Error al buscar el jugador: ", error);
@@ -47,6 +49,8 @@ function BuscarModificarJugadores() {
         text: "Hubo un problema al buscar el jugador.",
         icon: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,8 +60,14 @@ function BuscarModificarJugadores() {
 
     try {
       const jugadorRef = doc(db, "jugadores", jugador.id);
-      const nuevoEstado = habilitado === "true"; // Convertir de string a booleano
+      const nuevoEstado = condicion === "true"; // Convertir de string a booleano
       await updateDoc(jugadorRef, { habilitado: nuevoEstado });
+
+      // Actualizar el estado del jugador
+      setJugador((prevJugador) => ({
+        ...prevJugador,
+        habilitado: nuevoEstado,
+      }));
 
       Swal.fire({
         title: "Jugador actualizado",
@@ -67,9 +77,7 @@ function BuscarModificarJugadores() {
         icon: "success",
       });
 
-      setJugador(null);
-      setCarnet("");
-      setHabilitado("");
+      setCondicion("");
     } catch (error) {
       console.error("Error al actualizar el jugador: ", error);
       Swal.fire({
@@ -80,16 +88,11 @@ function BuscarModificarJugadores() {
     }
   };
 
-  // Función para navegar al AdminDashboard
-  const goToAdminDashboard = () => {
-    navigate("/admin-dashboard");
-  };
-
   return (
-    <div>
+    <div style={{ padding: "2rem" }}>
       <h1>Buscar y Modificar Jugador</h1>
       <form className="form" onSubmit={handleBuscar}>
-        <div className="form-containers">
+        <div style={{ marginBottom: "1rem" }}>
           <input
             className="inputs"
             type="text"
@@ -97,9 +100,10 @@ function BuscarModificarJugadores() {
             value={carnet}
             onChange={(e) => setCarnet(e.target.value)}
             required
+            disabled={loading}
           />
-          <button type="submit" className="buscar-button">
-            Buscar Jugador
+          <button type="submit" className="buscar-button" disabled={loading}>
+            {loading ? "Buscando..." : "Buscar Jugador"}
           </button>
         </div>
       </form>
@@ -107,10 +111,6 @@ function BuscarModificarJugadores() {
       {jugador && (
         <div className="jugador-info">
           <h3>Información del jugador:</h3>
-          <p>
-            <strong>Condición:</strong> {jugador.condicion}
-            {/* Campo agregado */}
-          </p>
           <p>
             <strong>Nombre:</strong> {jugador.nombre}
           </p>
@@ -120,23 +120,36 @@ function BuscarModificarJugadores() {
           <p>
             <strong>Club:</strong> {jugador.club}
           </p>
+          <p>
+            <strong>Condición:</strong>{" "}
+            {jugador.habilitado ? "Habilitado" : "Inhabilitado"}
+          </p>
           <div className="modificar-container">
             <label>
               <strong>Modificar condición:</strong>
             </label>
             <select
-              value={habilitado}
-              onChange={(e) => setHabilitado(e.target.value)}
+              value={condicion}
+              onChange={(e) => setCondicion(e.target.value)}
               className="select-condicion"
+              disabled={loading}
             >
               <option value="true">Habilitado</option>
               <option value="false">Inhabilitado</option>
             </select>
-            <button onClick={handleModificar} className="modificar-button">
-              Guardar Cambios
+            <button
+              onClick={handleModificar}
+              className="modificar-button"
+              disabled={loading}
+            >
+              {loading ? "Guardando..." : "Guardar Cambios"}
             </button>
             <div style={{ textAlign: "center", marginTop: "20px" }}>
-              <button className="volver-button" onClick={goToAdminDashboard}>
+              <button
+                className="volver-button"
+                onClick={() => navigate("/admin-dashboard")}
+                disabled={loading}
+              >
                 Volver al Panel de Administrador
               </button>
             </div>
