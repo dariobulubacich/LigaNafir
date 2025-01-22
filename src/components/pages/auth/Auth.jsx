@@ -86,21 +86,11 @@ const Login = () => {
   };
 
   return (
-    // <Grid container={true}>
-    //   <Grid style={{ padding: "12rem" }} size={{ xs: 12 }}>
-    <div className="auth-container">
-      {/* <Typography
-            variant="h1"
-            style={{ color: "Black", fontSize: "8.5rem", width: "100%" }}
-          > */}
+    <div className="div-liga">
       Liga Nafir
-      {/* </Typography>
-          <Typography
-            variant="h3"
-            style={{ width: "100%", color: "white", fontSize: "3.5rem" }}
-          > */}
-      Inicio de Sesión
-      {/* </Typography> */}
+      <div className="parrafo-iniciosesion">
+        <p style={{ fontSize: "2.5rem" }}>Inicio de Sesión</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <div>
           <input
