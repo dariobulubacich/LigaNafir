@@ -3,6 +3,7 @@ import { db } from "../../../firebase";
 import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth"; // Importar autenticación
 import Swal from "sweetalert2";
+import "./cargajugadores.css";
 // import Grid from "@mui/material/Grid2";
 // import { Typography } from "@mui/material";
 
@@ -110,231 +111,116 @@ function CargaJugadores() {
   };
 
   return (
-    // <Grid container={true}>
-    //   <Grid size={{ xs: 12 }} textAlign={"center"}>
-    <form onSubmit={guardarDatos}>
-      <div>
-        {/* <Grid container={true}>
-              <Grid
-                size={{ xs: 12 }}
-                textAlign={"center"}
-                fontSize={"3rem"}
-                color={"white"}
-              > */}
-        <div>
-          <h3 style={{ fontSize: "6.5rem" }}>Carga de Jugadores</h3>
-        </div>
-        {/* </Grid>
-            </Grid>
-            <Grid container={true}>
-              <Grid size={{ xs: 12 }} textAlign={"center"} padding={"1.5rem"}>
-                <Typography
-                  variant="h5"
-                  style={{ width: "100%", color: "white", fontSize: "2.5rem" }}
-                > */}
-        <p>Nº de Fecha a jugar</p>
-        {/* </Typography> */}
-        <input
-          // style={{
-          //   padding: "1.5rem",
-          //   fontSize: "1.5rem",
-          //   width: "10%",
-          //   textAlign: "center",
-          // }}
-          className="inputs"
-          type="number"
-          placeholder="Nº Fecha"
-          value={numeroFecha}
-          onChange={(e) => setNumeroFecha(e.target.value)}
-          required
-        />
-        {/* </Grid>
-            </Grid> */}
-        <div>
-          {/* <Typography
-                variant="h6"
-                style={{ width: "100%", color: "white", fontSize: "2.5rem" }}
-              > */}
-          <p>Nº de carnet</p>
-          {/* </Typography> */}
+    <div className="div-carga">
+      <form onSubmit={guardarDatos} className="form-container">
+        <h3 className="form-title">Carga de Jugadores</h3>
+
+        <div className="form-group">
+          <label htmlFor="numeroFecha" className="form-label">
+            Nº de Fecha a jugar
+          </label>
           <input
-            // style={{
-            //   padding: "2rem",
-            //   fontSize: "2.5rem",
-            //   width: "15%",
-            //   textAlign: "center",
-            // }}
-            className="inputs"
+            id="numeroFecha"
+            className="form-input"
+            type="number"
+            placeholder="Nº Fecha"
+            value={numeroFecha}
+            onChange={(e) => setNumeroFecha(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="carnet" className="form-label">
+            Nº de carnet
+          </label>
+          <input
+            id="carnet"
+            className="form-ncarnet"
             type="text"
-            placeholder=""
             value={carnet}
             onChange={(e) => setCarnet(e.target.value)}
             required
           />
         </div>
-        {/* <Grid container={true}>
-              <Grid size={{ xs: 12 }} textAlign={"center"} padding={"1.5rem"}> */}
-        <div>
-          <button
-            // style={{
-            //   padding: "0.5rem",
-            //   color: "white",
-            //   textDecoration: "white",
-            //   background: "black",
-            //   border: "none",
-            //   cursor: "pointer",
-            //   fontSize: "3rem",
-            // }}
-            type="button"
-            className="buscar-button"
-            onClick={buscarJugador}
-          >
-            Buscar Jugador
-          </button>
-        </div>
-        {/* </Grid>
-            </Grid> */}
+
+        <button type="button" className="buscar-button" onClick={buscarJugador}>
+          Buscar Jugador
+        </button>
+
         {jugadorEncontrado && (
           <>
-            {/* <Grid container={true}>
-                  <Grid
-                    size={{ xs: 12 }}
-                    textAlign={"center"}
-                    padding={"1.5rem"}
-                  > */}
-            <input
-              // style={{
-              //   width: "70%",
-              //   textAlign: "center",
-              //   color: "white",
-              //   fontSize: "3rem",
-              //   background: "none",
-              // }}
-              className="inputs"
-              type="text"
-              placeholder="Nombre"
-              value={nombre}
-              disabled
-            />
-            <input
-              // style={{
-              //   width: "70%",
-              //   textAlign: "center",
-              //   color: "white",
-              //   fontSize: "3rem",
-              //   background: "none",
-              // }}
-              className="inputs"
-              type="text"
-              placeholder="Apellido"
-              value={apellido}
-              disabled
-            />
-            <input
-              // style={{
-              //   width: "70%",
-              //   textAlign: "center",
-              //   color: "white",
-              //   fontSize: "3rem",
-              //   background: "none",
-              // }}
-              className="inputs"
-              type="text"
-              placeholder="Club"
-              value={club}
-              disabled
-            />
-
-            <div>
+            <div className="habilitado-group">
+              <p>Nombre:</p>
               <input
-                // style={{
-                //   width: "70%",
-                //   textAlign: "center",
-                //   color: "white",
-                //   fontSize: "3rem",
-                //   background: "none",
-                // }}
-                className="inputs"
+                className="form-jugador"
+                type="text"
+                placeholder="Nombre"
+                value={nombre}
+                disabled
+              />
+            </div>
+            <div className="habilitado-group">
+              <p>Apellido:</p>
+              <input
+                className="form-jugador"
+                type="text"
+                placeholder="Apellido"
+                value={apellido}
+                disabled
+              />
+            </div>
+
+            <div className="habilitado-group">
+              <p>Club:</p>
+              <input
+                className="form-jugador"
+                type="text"
+                placeholder="Club"
+                value={club}
+                disabled
+              />
+            </div>
+            <div className="habilitado-group">
+              <p>Categoria:</p>
+              <input
+                className="form-jugador"
                 type="text"
                 placeholder="Categoría"
                 value={categoria}
                 disabled
               />
-              <div className="habilitado">
-                <p
-                // style={{
-                //   color: "white",
-                //   background: "none",
-                //   fontSize: "2rem",
-                // }}
-                >
-                  Habilitado:
-                </p>
-                <input
-                  // style={{
-                  //   width: "70%",
-                  //   textAlign: "center",
-                  //   color: "white",
-                  //   fontSize: "3rem",
-                  //   background: "none",
-                  // }}
-                  className="inputs"
-                  type="text"
-                  placeholder="Condicion"
-                  value={condicion}
-                  disabled
-                />
-              </div>
             </div>
-            {/* <Grid container={true}>
-                      <Grid
-                        size={{ xs: 12 }}
-                        textAlign={"center"}
-                        padding={"1.5rem"}
-                      > */}
-            <input
-              // style={{
-              //   width: "25%",
-              //   textAlign: "center",
-              //   color: "black",
-              //   textDecoration: "white",
-              //   background: "white",
-              //   border: "none",
-              //   cursor: "pointer",
-              //   fontSize: "2.5rem",
-              //   padding: "1rem",
-              // }}
-              className="inputs"
-              type="number"
-              placeholder="Nº camiseta"
-              value={numeroCamiseta}
-              onChange={(e) => setNumeroCamiseta(e.target.value)}
-              required
-            />
-            {/* </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid> */}
+
+            <div className="habilitado-group">
+              <p>Habilitado:</p>
+              <input
+                className="form-jugador"
+                type="text"
+                placeholder="Condición"
+                value={condicion}
+                disabled
+              />
+            </div>
+
+            <div className="form-group">
+              <input
+                className="form-camiseta"
+                type="number"
+                placeholder="Nº camiseta"
+                value={numeroCamiseta}
+                onChange={(e) => setNumeroCamiseta(e.target.value)}
+                required
+              />
+            </div>
           </>
         )}
-      </div>
-      <button
-        // style={{
-        //   padding: "0.5rem",
-        //   color: "black",
-        //   background: "green",
-        //   border: "none",
-        //   cursor: "pointer",
-        //   fontSize: "3rem",
-        // }}
-        type="submit"
-        className="agregar-button"
-      >
-        Guardar
-      </button>
-    </form>
-    //   </Grid>
-    // </Grid>
+
+        <button type="submit" className="agregar-button">
+          Guardar
+        </button>
+      </form>
+    </div>
   );
 }
 

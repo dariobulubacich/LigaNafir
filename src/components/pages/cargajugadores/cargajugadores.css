@@ -1,8 +1,101 @@
-.div-jug-encontrado {
+.div-carga {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.form-title {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.form-group {
   display: flex;
   flex-direction: column;
 }
 
-.habilitado {
+.form-label {
+  font-size: 15px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.form-input {
+  width: 80px;
+  padding: 10px;
+  text-align: center;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #128c7e;
+  box-shadow: 0 0 5px rgba(18, 140, 126, 0.5);
+}
+
+.form-ncarnet {
+  width: 100px;
+  padding: 10px;
+  text-align: center;
+  font-size: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.form-jugador {
+  width: 200px;
+  padding: 30px;
+  text-align: center;
+  font-size: 2rem;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.buscar-button,
+.agregar-button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #128c7e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buscar-button:hover,
+.agregar-button:hover {
+  background-color: #0f6e63;
+}
+
+.habilitado-group {
   display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.habilitado-group p {
+  font-size: 30px;
+  color: white;
+}
+
+.form-camiseta {
+  width: 100px;
+  padding: 30px;
+  text-align: center;
+  font-size: 2rem;
+  border: 1px solid white;
+  border-radius: 10px;
 }
