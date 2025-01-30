@@ -27,21 +27,30 @@
   font-size: 15px;
   margin-bottom: 10px;
   color: white;
+  text-align: center;
 }
 
 .form-input {
   width: 80px;
-  padding: 10px;
+  padding: 15px 25px;
   text-align: center;
+  align-content: center;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
 }
 
-.form-input:focus {
-  border-color: #128c7e;
-  box-shadow: 0 0 5px rgba(18, 140, 126, 0.5);
+/* Ocultar las flechas en navegadores basados en Chrome, Edge y Safari */
+.form-input::-webkit-inner-spin-button,
+.form-input::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Prefijo específico de WebKit */
+  margin: 0;
+}
+
+/* Ocultar las flechas en navegadores basados en Firefox */
+.form-input {
+  -moz-appearance: textfield; /* Prefijo específico de Mozilla */
 }
 
 .form-ncarnet {
@@ -52,21 +61,36 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
+  appearance: textfield; /* Propiedad estándar */
+}
+
+/* Ocultar las flechas en navegadores basados en Chrome, Edge y Safari */
+.form-ncarnet::-webkit-inner-spin-button,
+.form-ncarnet::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Prefijo específico de WebKit */
+  margin: 0;
+}
+
+/* Ocultar las flechas en navegadores basados en Firefox */
+.form-ncarnet {
+  -moz-appearance: textfield; /* Prefijo específico de Mozilla */
 }
 
 .form-jugador {
   width: 200px;
-  padding: 30px;
+  padding: 15px;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   border: 1px solid white;
   border-radius: 10px;
+  color: white;
+  background-color: black;
 }
 
 .buscar-button,
 .agregar-button {
   padding: 10px 15px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   background-color: #128c7e;
   color: #fff;
   border: none;
@@ -95,7 +119,19 @@
   width: 100px;
   padding: 30px;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   border: 1px solid white;
   border-radius: 10px;
+}
+
+/* Ocultar las flechas en navegadores basados en Chrome, Edge y Safari */
+.form-camiseta::-webkit-inner-spin-button,
+.form-camiseta::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Prefijo específico de WebKit */
+  margin: 0;
+}
+
+/* Ocultar las flechas en navegadores basados en Firefox */
+.form-camiseta {
+  -moz-appearance: textfield; /* Prefijo específico de Mozilla */
 }

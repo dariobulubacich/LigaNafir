@@ -123,7 +123,6 @@ function CargaJugadores() {
             id="numeroFecha"
             className="form-input"
             type="number"
-            placeholder="Nº Fecha"
             value={numeroFecha}
             onChange={(e) => setNumeroFecha(e.target.value)}
             required
@@ -137,7 +136,7 @@ function CargaJugadores() {
           <input
             id="carnet"
             className="form-ncarnet"
-            type="text"
+            type="number"
             value={carnet}
             onChange={(e) => setCarnet(e.target.value)}
             required
@@ -203,11 +202,11 @@ function CargaJugadores() {
               />
             </div>
 
-            <div className="form-group">
+            <div className="habilitado-group">
+              <p>Nº Camiseta:</p>
               <input
                 className="form-camiseta"
                 type="number"
-                placeholder="Nº camiseta"
                 value={numeroCamiseta}
                 onChange={(e) => setNumeroCamiseta(e.target.value)}
                 required
