@@ -48,11 +48,6 @@
   margin: 0;
 }
 
-/* Ocultar las flechas en navegadores basados en Firefox */
-.form-input {
-  -moz-appearance: textfield; /* Prefijo específico de Mozilla */
-}
-
 .form-ncarnet {
   width: 100px;
   padding: 10px;
@@ -71,16 +66,11 @@
   margin: 0;
 }
 
-/* Ocultar las flechas en navegadores basados en Firefox */
-.form-ncarnet {
-  -moz-appearance: textfield; /* Prefijo específico de Mozilla */
-}
-
 .form-jugador {
   width: 200px;
-  padding: 15px;
+  padding: 5px;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 30px;
   border: 1px solid white;
   border-radius: 10px;
   color: white;
@@ -111,13 +101,14 @@
 }
 
 .habilitado-group p {
-  font-size: 30px;
+  font-size: 20px;
   color: white;
+  text-align: left;
 }
 
 .form-camiseta {
-  width: 100px;
-  padding: 30px;
+  width: 50px;
+  padding: 20px;
   text-align: center;
   font-size: 2.5rem;
   border: 1px solid white;
@@ -129,9 +120,4 @@
 .form-camiseta::-webkit-outer-spin-button {
   -webkit-appearance: none; /* Prefijo específico de WebKit */
   margin: 0;
-}
-
-/* Ocultar las flechas en navegadores basados en Firefox */
-.form-camiseta {
-  -moz-appearance: textfield; /* Prefijo específico de Mozilla */
 }
