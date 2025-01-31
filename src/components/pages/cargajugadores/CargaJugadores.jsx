@@ -115,104 +115,108 @@ function CargaJugadores() {
       <form onSubmit={guardarDatos} className="form-container">
         <h3 className="form-title">Carga de Jugadores</h3>
 
-        <div className="form-group">
-          <label htmlFor="numeroFecha" className="form-label">
-            Nº de Fecha a jugar
-          </label>
-          <input
-            id="numeroFecha"
-            className="form-input"
-            type="number"
-            value={numeroFecha}
-            onChange={(e) => setNumeroFecha(e.target.value)}
-            required
-          />
-        </div>
+        {/* Datos del partido */}
+        <div className="row">
+          <div className="form-group">
+            <label htmlFor="numeroFecha" className="form-label">
+              Nº de Fecha
+            </label>
+            <input
+              id="numeroFecha"
+              type="number"
+              className="form-input"
+              value={numeroFecha}
+              onChange={(e) => setNumeroFecha(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="carnet" className="form-label">
-            Nº de carnet
-          </label>
-          <input
-            id="carnet"
-            className="form-ncarnet"
-            type="number"
-            value={carnet}
-            onChange={(e) => setCarnet(e.target.value)}
-            required
-          />
+          <div className="form-group">
+            <label htmlFor="carnet" className="form-label">
+              Nº de Carnet
+            </label>
+            <input
+              id="carnet"
+              type="number"
+              className="form-input"
+              value={carnet}
+              onChange={(e) => setCarnet(e.target.value)}
+              required
+            />
+          </div>
         </div>
 
         <button type="button" className="buscar-button" onClick={buscarJugador}>
           Buscar Jugador
         </button>
 
+        {/* Datos del Jugador */}
         {jugadorEncontrado && (
-          <>
-            <div className="habilitado-group">
-              <p>Nombre:</p>
-              <input
-                className="form-jugador"
-                type="text"
-                placeholder="Nombre"
-                value={nombre}
-                disabled
-              />
-            </div>
-            <div className="habilitado-group">
-              <p>Apellido:</p>
-              <input
-                className="form-jugador"
-                type="text"
-                placeholder="Apellido"
-                value={apellido}
-                disabled
-              />
-            </div>
-
-            <div className="habilitado-group">
-              <p>Club:</p>
-              <input
-                className="form-jugador"
-                type="text"
-                placeholder="Club"
-                value={club}
-                disabled
-              />
-            </div>
-            <div className="habilitado-group">
-              <p>Categoria:</p>
-              <input
-                className="form-jugador"
-                type="text"
-                placeholder="Categoría"
-                value={categoria}
-                disabled
-              />
+          <div className="jugador-info">
+            <div className="row">
+              <div className="form-group">
+                <label className="form-label">Nombre</label>
+                <input
+                  className="form-jugador"
+                  type="text"
+                  value={nombre}
+                  disabled
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Apellido</label>
+                <input
+                  className="form-jugador"
+                  type="text"
+                  value={apellido}
+                  disabled
+                />
+              </div>
             </div>
 
-            <div className="habilitado-group">
-              <p>Habilitado:</p>
-              <input
-                className="form-jugador"
-                type="text"
-                placeholder="Condición"
-                value={condicion}
-                disabled
-              />
+            <div className="row">
+              <div className="form-group">
+                <label className="form-label">Club</label>
+                <input
+                  className="form-jugador"
+                  type="text"
+                  value={club}
+                  disabled
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Categoría</label>
+                <input
+                  className="form-jugador"
+                  type="text"
+                  value={categoria}
+                  disabled
+                />
+              </div>
             </div>
 
-            <div className="habilitado-group">
-              <p>Nº Camiseta:</p>
-              <input
-                className="form-camiseta"
-                type="number"
-                value={numeroCamiseta}
-                onChange={(e) => setNumeroCamiseta(e.target.value)}
-                required
-              />
+            <div className="row">
+              <div className="form-group">
+                <label className="form-label">Habilitado</label>
+                <input
+                  className="form-jugador"
+                  type="text"
+                  value={condicion}
+                  disabled
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Nº Camiseta</label>
+                <input
+                  className="form-camiseta"
+                  type="number"
+                  value={numeroCamiseta}
+                  onChange={(e) => setNumeroCamiseta(e.target.value)}
+                  required
+                />
+              </div>
             </div>
-          </>
+          </div>
         )}
 
         <button type="submit" className="agregar-button">

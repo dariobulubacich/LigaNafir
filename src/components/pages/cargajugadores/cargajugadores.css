@@ -1,92 +1,74 @@
 .div-carga {
-  max-width: 400px;
-  margin: 20px auto;
+  max-width: 300px;
+  margin: 2px auto;
   padding: 20px;
+  background: #333;
+  border-radius: 10px;
+  text-align: center; /* Centra el contenido */
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  align-items: center;
+  align-items: center; /* Centra todo dentro del formulario */
+  gap: 10px;
 }
 
 .form-title {
   font-size: 25px;
-  text-align: center;
-  margin-bottom: 15px;
   color: white;
+}
+
+.row {
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos estén en columna */
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centra los elementos dentro de cada grupo */
+  width: 80%; /* Para que no sean demasiado anchos */
 }
 
 .form-label {
-  font-size: 15px;
-  margin-bottom: 10px;
+  font-size: 16px;
   color: white;
-  text-align: center;
+  margin-bottom: 5px;
 }
 
-.form-input {
-  width: 80px;
-  padding: 15px 25px;
-  text-align: center;
-  align-content: center;
+.form-input,
+.form-jugador,
+.form-camiseta {
+  width: 100%;
+  max-width: 250px; /* Para centrar y evitar inputs demasiado anchos */
+  padding: 10px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  outline: none;
-}
-
-/* Ocultar las flechas en navegadores basados en Chrome, Edge y Safari */
-.form-input::-webkit-inner-spin-button,
-.form-input::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* Prefijo específico de WebKit */
-  margin: 0;
-}
-
-.form-ncarnet {
-  width: 100px;
-  padding: 10px;
+  background: white;
   text-align: center;
-  font-size: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-  appearance: textfield; /* Propiedad estándar */
-}
-
-/* Ocultar las flechas en navegadores basados en Chrome, Edge y Safari */
-.form-ncarnet::-webkit-inner-spin-button,
-.form-ncarnet::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* Prefijo específico de WebKit */
-  margin: 0;
 }
 
 .form-jugador {
-  width: 200px;
-  padding: 5px;
-  text-align: center;
-  font-size: 30px;
-  border: 1px solid white;
-  border-radius: 10px;
+  background: black;
   color: white;
-  background-color: black;
 }
 
 .buscar-button,
 .agregar-button {
-  padding: 10px 15px;
-  font-size: 1.5rem;
+  width: 80%;
+  padding: 12px;
+  font-size: 1rem;
   background-color: #128c7e;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.3s;
 }
 
 .buscar-button:hover,
@@ -94,30 +76,11 @@
   background-color: #0f6e63;
 }
 
-.habilitado-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.habilitado-group p {
-  font-size: 20px;
-  color: white;
-  text-align: left;
-}
-
-.form-camiseta {
-  width: 50px;
-  padding: 20px;
-  text-align: center;
-  font-size: 2.5rem;
-  border: 1px solid white;
-  border-radius: 10px;
-}
-
-/* Ocultar las flechas en navegadores basados en Chrome, Edge y Safari */
+/* Ocultar las flechas en los campos de número en navegadores basados en Chrome, Edge y Safari */
+.form-input::-webkit-inner-spin-button,
+.form-input::-webkit-outer-spin-button,
 .form-camiseta::-webkit-inner-spin-button,
 .form-camiseta::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* Prefijo específico de WebKit */
+  -webkit-appearance: none;
   margin: 0;
 }
