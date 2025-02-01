@@ -12,6 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -102,6 +103,7 @@ const Login = () => {
             required
           />
         </div>
+
         <div className="password-container">
           <input
             className="input-aut"
@@ -111,6 +113,14 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {/* Campo de Contraseña con Mostrar/Ocultar */}
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? "🔒" : "👁"}
+          </button>
         </div>
         <div>
           <button type="submit">Iniciar Sesión</button>
