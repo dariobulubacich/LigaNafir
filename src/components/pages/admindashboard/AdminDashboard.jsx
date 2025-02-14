@@ -15,6 +15,11 @@ const AdminDashboard = () => {
               </button>
             </li>
             <li>
+              <button onClick={() => navigate("/AgregarClubes")}>
+                Agregar Clubes
+              </button>
+            </li>
+            <li>
               <button onClick={() => navigate("/ListarJugadores")}>
                 Listar Jugadores
               </button>
@@ -32,6 +37,11 @@ const AdminDashboard = () => {
             </li>
             <li>
               <button onClick={() => navigate("/Carnets")}>Carnets</button>
+            </li>
+            <li>
+              <button onClick={() => navigate("/ImportarExcel")}>
+                Importaciones masivas
+              </button>
             </li>
             <li>
               <button onClick={() => navigate("/RegisterUser")}>

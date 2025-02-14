@@ -3,6 +3,8 @@ import { QRCodeCanvas } from "qrcode.react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
+import "./carnet.css";
+import "./print.css"; // Importar estilos de impresión
 
 const Carnets = () => {
   const [searchField, setSearchField] = useState("");
@@ -10,6 +12,16 @@ const Carnets = () => {
   const [playerData, setPlayerData] = useState(null);
   const carnetRef = useRef();
   const navigate = useNavigate();
+
+  const formatDate = (fecha) => {
+    if (!fecha) return "";
+    const date = new Date(fecha);
+    return date.toLocaleDateString("es-ES", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
 
   // Función para buscar en Firebase
   const handleSearch = async () => {
@@ -31,16 +43,11 @@ const Carnets = () => {
     }
   };
 
-  // Función para imprimir
+  // Función para imprimir con CSS
   const handlePrint = () => {
-    const printContents = carnetRef.current.innerHTML;
-    const originalContents = document.body.innerHTML;
-
-    document.body.innerHTML = printContents;
     window.print();
-    document.body.innerHTML = originalContents;
-    window.location.reload();
   };
+
   // Función para navegar al AdminDashboard
   const goToAdminDashboard = () => {
     navigate("/admin-dashboard");
@@ -93,59 +100,65 @@ const Carnets = () => {
       </div>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <button className="volver-button" onClick={goToAdminDashboard}>
-          Volver al Panel de Admini
+          Volver al Panel de Admin
         </button>
       </div>
 
       {/* Carnet generado */}
       {playerData && (
         <div>
-          <div
-            ref={carnetRef}
-            style={{
-              width: "20cm",
-              height: "10cm",
-              border: "2px solid #000",
-              borderRadius: "10px",
-              padding: "20px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              backgroundColor: "#f9f9f9",
-              margin: "0 auto",
-            }}
-          >
+          <div id="carnet-print" className="carnet-container" ref={carnetRef}>
             <div style={{ textAlign: "center" }}>
-              <h2 style={{ margin: 0 }}>Carnet de Jugador</h2>
+              <h2>NUEVA ASOCIACION FUTBOL INFANTIL ROSARIO</h2>
             </div>
-            <div>
-              <p>
-                <strong>Apellido:</strong> {playerData.apellido}
-              </p>
-              <p>
-                <strong>Nombre:</strong> {playerData.nombre}
-              </p>
-              <p>
-                <strong>Club:</strong> {playerData.club}
-              </p>
-              <p>
-                <strong>Categoría:</strong> {playerData.categoria}
-              </p>
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <QRCodeCanvas
-                value={JSON.stringify({
-                  apellido: playerData.apellido,
-                  nombre: playerData.nombre,
-                  club: playerData.club,
-                  categoria: playerData.categoria,
-                })}
-                size={80}
-                bgColor={"#ffffff"}
-                fgColor={"#000000"}
-                level={"L"}
-                includeMargin={false}
-              />
+            <div className="carnet-content">
+              <div className="fot-qr-container">
+                {/* Recuadro para la foto */}
+                <div className="foto-container"></div>
+                <div className="qr-container">
+                  <QRCodeCanvas
+                    value={JSON.stringify({
+                      carnet: playerData.carnet,
+                      nombre: playerData.nombre,
+                      apellido: playerData.apellido,
+                      fechaNacimiento: playerData.fechaNacimiento,
+                      categoria: playerData.categoria,
+                      dni: playerData.dni,
+                      club: playerData.club,
+                    })}
+                    size={80}
+                    bgColor={"#ffffff"}
+                    fgColor={"#000000"}
+                    level={"L"}
+                    includeMargin={false}
+                  />
+                </div>
+              </div>
+              {/* Datos del jugador */}
+              <div className="datos-container">
+                <p>
+                  <strong>Nº Carnet:</strong> {playerData.carnet}
+                </p>
+                <p>
+                  <strong>Nombre:</strong> {playerData.nombre}
+                </p>
+                <p>
+                  <strong>Apellido:</strong> {playerData.apellido}
+                </p>
+                <p>
+                  <strong>Fecha Nac:</strong>{" "}
+                  {formatDate(playerData.fechaNacimiento)}
+                </p>
+                <p>
+                  <strong>Categoría:</strong> {playerData.categoria}
+                </p>
+                <p>
+                  <strong>D.N.I Nº:</strong> {playerData.dni}
+                </p>
+                <p>
+                  <strong>Club:</strong> {playerData.club}
+                </p>
+              </div>
             </div>
           </div>
           <button
