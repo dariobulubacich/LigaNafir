@@ -45,6 +45,10 @@
   color: #c3e0c4;
 }
 
+.toggle-password {
+  margin: 15px;
+}
+
 /*.password-container {
   display: flex;
   align-items: center;

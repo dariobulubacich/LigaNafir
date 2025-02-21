@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { db } from "../../../firebase";
-import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  where,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -43,6 +51,7 @@ function CargaJugadores() {
     fetchTorneos();
   }, []);
 
+  // Buscar jugador en Firebase y actualizar estado
   const buscarJugador = async () => {
     try {
       const jugadoresRef = collection(db, "jugadores");
@@ -50,15 +59,21 @@ function CargaJugadores() {
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
-        const jugador = querySnapshot.docs[0];
-        const data = jugador.data();
+        const jugadorDoc = querySnapshot.docs[0];
 
-        setJugadorEncontrado({ id: jugador.id, ...data });
-        setNombre(data.nombre);
-        setApellido(data.apellido);
-        setClub(data.club);
-        setCondicion(data.condicion);
-        setCategoria(data.categoria);
+        // Asegurar que la condición (habilitado) es la más reciente
+        const jugadorRef = doc(db, "jugadores", jugadorDoc.id);
+        const jugadorSnap = await getDoc(jugadorRef);
+        const jugadorActualizado = jugadorSnap.data();
+
+        setJugadorEncontrado({ id: jugadorDoc.id, ...jugadorActualizado });
+        setNombre(jugadorActualizado.nombre);
+        setApellido(jugadorActualizado.apellido);
+        setClub(jugadorActualizado.club);
+        setCondicion(
+          jugadorActualizado.habilitado ? "Habilitado" : "Inhabilitado"
+        );
+        setCategoria(jugadorActualizado.categoria);
       } else {
         Swal.fire({
           title: "Jugador no encontrado",
@@ -77,6 +92,7 @@ function CargaJugadores() {
     }
   };
 
+  // Guardar datos del jugador en la colección "fechasGuardadas"
   const guardarDatos = async (e) => {
     e.preventDefault();
 
