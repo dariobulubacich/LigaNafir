@@ -9,7 +9,6 @@ import BuscarModificarJugadores from "./components/pages/buscarjugadores/BuscarJ
 import RegisterUser from "./components/pages/registeruser/RegisterUser";
 import ImportarExcel from "./importarexcel/ImportarExcel";
 import AgregarClubes from "./components/pages/agregarclubes/AgregarClubes";
-import SeleccionTorneo from "./components/pages/seleccionartorneo/SeleccionTorneo";
 import AltaTorneos from "./components/pages/altastorneos/AltaTorneos";
 import ListaClubes from "./components/pages/listaclubes/ListaClubes";
 import ListadosGenerales from "./components/pages/listadosgenerales/ListadosGenerales";
@@ -28,7 +27,6 @@ function App() {
         <Route path="/BuscarJugadores" element={<BuscarModificarJugadores />} />{" "}
         <Route path="/ImportarExcel" element={<ImportarExcel />} />{" "}
         <Route path="/RegisterUser" element={<RegisterUser />} />{" "}
-        <Route path="/SeleccionTorneo" element={<SeleccionTorneo />} />{" "}
         <Route path="/AltaTorneos" element={<AltaTorneos />} />{" "}
         <Route path="/ListaClubes" element={<ListaClubes />} />{" "}
         <Route path="/ListadosGenerales" element={<ListadosGenerales />} />{" "}
