@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../../../firebase";
 import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { useLocation } from "react-router-dom"; // Importar useLocation
+import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./cargajugadores.css";
 
 function CargaJugadores() {
   const location = useLocation();
-  const numeroFechaInicial = location.state?.numeroFecha || ""; // Recibir numeroFecha
+  const numeroFechaInicial = location.state?.numeroFecha || "";
+
   const [carnet, setCarnet] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -19,7 +20,28 @@ function CargaJugadores() {
   const [numeroFecha, setNumeroFecha] = useState(numeroFechaInicial);
   const [jugadorEncontrado, setJugadorEncontrado] = useState(null);
 
+  const [torneos, setTorneos] = useState([]);
+  const [torneoSeleccionado, setTorneoSeleccionado] = useState("");
+
   const auth = getAuth();
+
+  // Cargar torneos desde Firebase
+  useEffect(() => {
+    const fetchTorneos = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "torneos"));
+        const torneosList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setTorneos(torneosList);
+      } catch (error) {
+        console.error("Error al obtener torneos:", error);
+      }
+    };
+
+    fetchTorneos();
+  }, []);
 
   const buscarJugador = async () => {
     try {
@@ -55,10 +77,18 @@ function CargaJugadores() {
     }
   };
 
-  const torneoSeleccionado = localStorage.getItem("torneoSeleccionado");
-
   const guardarDatos = async (e) => {
     e.preventDefault();
+
+    if (!torneoSeleccionado) {
+      Swal.fire({
+        title: "Error",
+        text: "Debes seleccionar un torneo antes de guardar.",
+        icon: "error",
+      });
+      return;
+    }
+
     if (!jugadorEncontrado) {
       Swal.fire({
         title: "Error",
@@ -90,7 +120,7 @@ function CargaJugadores() {
 
       Swal.fire({
         title: "Datos guardados correctamente",
-        text: `Jugador: ${nombre} ${apellido}, Fecha: ${numeroFecha}`,
+        text: `Jugador: ${nombre} ${apellido}, Fecha: ${numeroFecha}, Club: ${club}`,
         icon: "success",
       });
 
@@ -102,7 +132,6 @@ function CargaJugadores() {
       setCondicion("");
       setCategoria("");
       setNumeroCamiseta("");
-      setNumeroFecha(numeroFechaInicial);
       setJugadorEncontrado(null);
     } catch (error) {
       console.error("Error al guardar los datos: ", error);
@@ -119,35 +148,50 @@ function CargaJugadores() {
       <form onSubmit={guardarDatos} className="form-container">
         <h3 className="form-title">Carga de Jugadores</h3>
 
-        <div className="row">
-          <div className="form-group">
-            <label htmlFor="numeroFecha" className="form-label">
-              Nº de Fecha
-            </label>
-            <input
-              id="numeroFecha"
-              type="number"
-              className="form-input"
-              value={numeroFecha}
-              onChange={(e) => setNumeroFecha(e.target.value)}
-              required
-              readOnly
-            />
-          </div>
+        {/* Selección del Torneo */}
+        <div className="form-group">
+          <label className="form-label">Selecciona un Torneo</label>
+          <select
+            className="input"
+            value={torneoSeleccionado}
+            onChange={(e) => setTorneoSeleccionado(e.target.value)}
+            required
+          >
+            <option value="">-- Selecciona un torneo --</option>
+            {torneos.map((torneo) => (
+              <option key={torneo.id} value={torneo.id}>
+                {torneo.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="carnet" className="form-label">
-              Nº de Carnet
-            </label>
-            <input
-              id="carnet"
-              type="number"
-              className="form-input"
-              value={carnet}
-              onChange={(e) => setCarnet(e.target.value)}
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="numeroFecha" className="form-label">
+            Nº de Fecha
+          </label>
+          <input
+            id="numeroFecha"
+            type="number"
+            className="form-input"
+            value={numeroFecha}
+            onChange={(e) => setNumeroFecha(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="carnet" className="form-label">
+            Nº de Carnet
+          </label>
+          <input
+            id="carnet"
+            type="number"
+            className="form-input"
+            value={carnet}
+            onChange={(e) => setCarnet(e.target.value)}
+            required
+          />
         </div>
 
         <button type="button" className="buscar-button" onClick={buscarJugador}>
@@ -156,68 +200,60 @@ function CargaJugadores() {
 
         {jugadorEncontrado && (
           <div className="jugador-info">
-            <div className="row">
-              <div className="form-group">
-                <label className="form-label">Nombre</label>
-                <input
-                  className="form-jugador"
-                  type="text"
-                  value={nombre}
-                  disabled
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Apellido</label>
-                <input
-                  className="form-jugador"
-                  type="text"
-                  value={apellido}
-                  disabled
-                />
-              </div>
+            <div className="form-group">
+              <label className="form-label">Nombre</label>
+              <input
+                className="form-jugador"
+                type="text"
+                value={nombre}
+                disabled
+              />
             </div>
-
-            <div className="row">
-              <div className="form-group">
-                <label className="form-label">Club</label>
-                <input
-                  className="form-jugador"
-                  type="text"
-                  value={club}
-                  disabled
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Categoría</label>
-                <input
-                  className="form-jugador"
-                  type="text"
-                  value={categoria}
-                  disabled
-                />
-              </div>
+            <div className="form-group">
+              <label className="form-label">Apellido</label>
+              <input
+                className="form-jugador"
+                type="text"
+                value={apellido}
+                disabled
+              />
             </div>
-
-            <div className="row">
-              <div className="form-group">
-                <label className="form-label">Habilitado</label>
-                <input
-                  className="form-jugador"
-                  type="text"
-                  value={condicion}
-                  disabled
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Nº Camiseta</label>
-                <input
-                  className="form-camiseta"
-                  type="number"
-                  value={numeroCamiseta}
-                  onChange={(e) => setNumeroCamiseta(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="form-group">
+              <label className="form-label">Club</label>
+              <input
+                className="form-jugador"
+                type="text"
+                value={club}
+                disabled
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Categoría</label>
+              <input
+                className="form-jugador"
+                type="text"
+                value={categoria}
+                disabled
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Habilitado</label>
+              <input
+                className="form-jugador"
+                type="text"
+                value={condicion}
+                disabled
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Nº Camiseta</label>
+              <input
+                className="form-camiseta"
+                type="number"
+                value={numeroCamiseta}
+                onChange={(e) => setNumeroCamiseta(e.target.value)}
+                required
+              />
             </div>
           </div>
         )}
