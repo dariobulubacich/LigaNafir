@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase"; // Ajusta la ruta según tu estructura
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 const SeleccionTorneo = () => {
   const [torneos, setTorneos] = useState([]);
   const [torneoSeleccionado, setTorneoSeleccionado] = useState("");
-  const [numeroIngresado, setNumeroIngresado] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const SeleccionTorneo = () => {
     fetchTorneos();
   }, []);
 
-  const handleSeleccionar = async () => {
+  const handleSeleccionar = () => {
     if (!torneoSeleccionado) {
       Swal.fire({
         icon: "warning",
@@ -37,32 +36,8 @@ const SeleccionTorneo = () => {
       return;
     }
 
-    if (!numeroIngresado) {
-      Swal.fire({
-        icon: "warning",
-        title: "Ingresa un número",
-        text: "Debes ingresar un número antes de continuar.",
-      });
-      return;
-    }
-
-    try {
-      await addDoc(collection(db, "numeroFecha"), {
-        torneoId: torneoSeleccionado,
-        numero: numeroIngresado,
-      });
-
-      localStorage.setItem("torneoSeleccionado", torneoSeleccionado);
-      localStorage.setItem("numeroIngresado", numeroIngresado);
-      navigate("/cargajugadores", { state: { numeroFecha: numeroIngresado } }); // Redirige con númeroFecha
-    } catch (error) {
-      console.error("Error al guardar en Firebase:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un problema al guardar la información.",
-      });
-    }
+    localStorage.setItem("torneoSeleccionado", torneoSeleccionado);
+    navigate("/cargajugadores"); // Redirige a la página de carga de jugadores
   };
 
   return (
@@ -80,13 +55,6 @@ const SeleccionTorneo = () => {
           </option>
         ))}
       </select>
-      <input
-        type="number"
-        className="input"
-        placeholder="Ingresa un número"
-        value={numeroIngresado}
-        onChange={(e) => setNumeroIngresado(e.target.value)}
-      />
       <button className="button" onClick={handleSeleccionar}>
         Confirmar Torneo
       </button>
