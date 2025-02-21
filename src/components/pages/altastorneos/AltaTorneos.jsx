@@ -3,7 +3,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../firebase"; // Ajusta la ruta según tu estructura
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import "./AltaTorneos.css";
+import "./altatorneos.css";
 
 const AltaTorneos = () => {
   const [nombreTorneo, setNombreTorneo] = useState("");
