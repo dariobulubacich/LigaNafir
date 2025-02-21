@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { db } from "../../../firebase";
 import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
-import { getAuth } from "firebase/auth"; // Importar autenticación
+import { getAuth } from "firebase/auth";
+import { useLocation } from "react-router-dom"; // Importar useLocation
 import Swal from "sweetalert2";
 import "./cargajugadores.css";
-// import Grid from "@mui/material/Grid2";
-// import { Typography } from "@mui/material";
 
 function CargaJugadores() {
+  const location = useLocation();
+  const numeroFechaInicial = location.state?.numeroFecha || ""; // Recibir numeroFecha
   const [carnet, setCarnet] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -15,10 +16,10 @@ function CargaJugadores() {
   const [categoria, setCategoria] = useState("");
   const [numeroCamiseta, setNumeroCamiseta] = useState("");
   const [condicion, setCondicion] = useState("");
-  const [numeroFecha, setNumeroFecha] = useState("");
+  const [numeroFecha, setNumeroFecha] = useState(numeroFechaInicial);
   const [jugadorEncontrado, setJugadorEncontrado] = useState(null);
 
-  const auth = getAuth(); // Obtener instancia de autenticación
+  const auth = getAuth();
 
   const buscarJugador = async () => {
     try {
@@ -54,6 +55,8 @@ function CargaJugadores() {
     }
   };
 
+  const torneoSeleccionado = localStorage.getItem("torneoSeleccionado");
+
   const guardarDatos = async (e) => {
     e.preventDefault();
     if (!jugadorEncontrado) {
@@ -69,7 +72,7 @@ function CargaJugadores() {
       const usuarioActual = auth.currentUser
         ? auth.currentUser.email
         : "Anónimo";
-      const fechaGuardado = new Date();
+      const fechaGuardado = new Date().toLocaleDateString("es-ES");
 
       await addDoc(collection(db, "fechasGuardadas"), {
         carnet,
@@ -80,8 +83,9 @@ function CargaJugadores() {
         categoria,
         numeroCamiseta,
         numeroFecha,
+        torneo: torneoSeleccionado,
         usuario: usuarioActual,
-        fechaGuardado: fechaGuardado.toISOString(),
+        fechaGuardado,
       });
 
       Swal.fire({
@@ -98,7 +102,7 @@ function CargaJugadores() {
       setCondicion("");
       setCategoria("");
       setNumeroCamiseta("");
-      setNumeroFecha("");
+      setNumeroFecha(numeroFechaInicial);
       setJugadorEncontrado(null);
     } catch (error) {
       console.error("Error al guardar los datos: ", error);
@@ -115,7 +119,6 @@ function CargaJugadores() {
       <form onSubmit={guardarDatos} className="form-container">
         <h3 className="form-title">Carga de Jugadores</h3>
 
-        {/* Datos del partido */}
         <div className="row">
           <div className="form-group">
             <label htmlFor="numeroFecha" className="form-label">
@@ -128,6 +131,7 @@ function CargaJugadores() {
               value={numeroFecha}
               onChange={(e) => setNumeroFecha(e.target.value)}
               required
+              readOnly
             />
           </div>
 
@@ -150,7 +154,6 @@ function CargaJugadores() {
           Buscar Jugador
         </button>
 
-        {/* Datos del Jugador */}
         {jugadorEncontrado && (
           <div className="jugador-info">
             <div className="row">

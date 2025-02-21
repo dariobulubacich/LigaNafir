@@ -10,20 +10,9 @@ const AdminDashboard = () => {
         <nav>
           <ul className="ul-nav">
             <li>
-              <button onClick={() => navigate("/AgregarJugadores")}>
-                Agregar Jugadores
-              </button>
+              <button onClick={() => navigate("/Altas")}>Altas</button>
             </li>
-            <li>
-              <button onClick={() => navigate("/AgregarClubes")}>
-                Agregar Clubes
-              </button>
-            </li>
-            <li>
-              <button onClick={() => navigate("/ListarJugadores")}>
-                Listar Jugadores
-              </button>
-            </li>
+
             <li>
               <button onClick={() => navigate("/BuscarJugadores")}>
                 Buscar Jugadores
@@ -41,6 +30,11 @@ const AdminDashboard = () => {
             <li>
               <button onClick={() => navigate("/ImportarExcel")}>
                 Importaciones masivas
+              </button>
+            </li>
+            <li>
+              <button onClick={() => navigate("/ListadosGenerales")}>
+                Listados Generales
               </button>
             </li>
             <li>

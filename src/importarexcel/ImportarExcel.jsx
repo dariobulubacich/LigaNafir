@@ -32,6 +32,14 @@ const ImportarExcel = () => {
         habilitado: String(item["habilitado"] || "false").trim(),
         nombre: String(item["nombre"] || "").trim(),
         numeroCamiseta: String(item["numeroCamiseta"] || "").trim(),
+        ciudad: String(item["ciudad"] || "").trim(),
+        dni: String(item["dni"] || "").trim(),
+        domicilio: String(item["domicilio"] || "").trim(),
+        fechaAlta: String(item["fechaAlta"] || "").trim(),
+        fechaNacimiento: String(item["fechaNacimiento"] || "").trim(),
+        observaciones: String(item["observaciones"] || "").trim(),
+        telefono: String(item["string"] || "").trim(),
+        usuario: String(item["usuario"] || "").trim(),
       }));
 
       setData(formattedData);

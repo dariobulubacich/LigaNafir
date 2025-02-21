@@ -36,7 +36,7 @@ const Login = () => {
         if (role === "admin") {
           navigate("/admin-dashboard");
         } else {
-          navigate("/cargajugadores");
+          navigate("/SeleccionTorneo");
         }
       } else {
         throw new Error("El usuario no tiene datos asociados en Firestore");
@@ -107,13 +107,12 @@ const Login = () => {
         <div className="password-container">
           <input
             className="input-aut"
-            type="password"
+            type={showPassword ? "text" : "password"} // Cambia dinámicamente el tipo
             placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {/* Campo de Contraseña con Mostrar/Ocultar */}
           <button
             type="button"
             className="toggle-password"

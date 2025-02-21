@@ -14,13 +14,29 @@ const Carnets = () => {
   const navigate = useNavigate();
 
   const formatDate = (fecha) => {
-    if (!fecha) return "";
-    const date = new Date(fecha);
-    return date.toLocaleDateString("es-ES", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    if (!fecha) return "Fecha no disponible";
+
+    // Verificar si es una cadena en formato DD/MM/YYYY
+    const regexFecha = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+    const match = fecha.match(regexFecha);
+
+    if (match) {
+      const dia = match[1];
+      const mes = match[2];
+      const anio = match[3];
+
+      const date = new Date(`${anio}-${mes}-${dia}`); // Formato correcto para Date
+
+      return isNaN(date.getTime())
+        ? "Fecha inválida"
+        : date.toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          });
+    }
+
+    return "Fecha inválida";
   };
 
   // Función para buscar en Firebase
@@ -109,7 +125,9 @@ const Carnets = () => {
         <div>
           <div id="carnet-print" className="carnet-container" ref={carnetRef}>
             <div style={{ textAlign: "center" }}>
-              <h2>NUEVA ASOCIACION FUTBOL INFANTIL ROSARIO</h2>
+              <h2 className="h2-carnet">
+                NUEVA ASOCIACION FUTBOL INFANTIL ROSARIO
+              </h2>
             </div>
             <div className="carnet-content">
               <div className="fot-qr-container">

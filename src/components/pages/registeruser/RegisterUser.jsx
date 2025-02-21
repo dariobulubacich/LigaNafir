@@ -3,8 +3,7 @@ import { auth, db } from "../../../firebase"; // Asegúrate de usar tu configura
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
-// import Grid from "@mui/material/Grid2";
-// import { Typography } from "@mui/material";
+
 import "./registeruser.css";
 import { useNavigate } from "react-router-dom";
 

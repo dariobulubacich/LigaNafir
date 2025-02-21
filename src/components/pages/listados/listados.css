@@ -1,0 +1,59 @@
+.listar-jugadores {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+.cargar-button,
+.button-export,
+.volver-button,
+.button-filter {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.button-export:hover,
+.volver-button:hover,
+.cargar-button:hover,
+.button-filter:hover {
+  background-color: #0056b3;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.input,
+.date-filters input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.jugadores-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  color: white;
+}
+
+.jugadores-table th,
+.jugadores-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.jugadores-table th {
+  background-color: #007bff;
+  color: white;
+}

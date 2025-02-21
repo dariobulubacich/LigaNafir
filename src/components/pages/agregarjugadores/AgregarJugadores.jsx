@@ -206,7 +206,7 @@ function AgregarJugadores() {
               Verificar DNI
             </button>
 
-            <h3>Nº Carnet:</h3>
+            <h2 className="h2">Nº Carnet:</h2>
             <input
               className="inputs-carnet"
               type="text"
@@ -256,7 +256,7 @@ function AgregarJugadores() {
             />
           </div>
           <div className="div-dni">
-            <h2>Fecha Nacimiento</h2>
+            <h2 className="h2">Fecha Nacimiento</h2>
             <input
               className="inputs"
               type="date"
@@ -298,7 +298,7 @@ function AgregarJugadores() {
           </div>
 
           <div className="div-dni">
-            <h2>Fecha de alta</h2>
+            <h2 className="h2">Fecha de alta</h2>
 
             <input
               className="inputs"
