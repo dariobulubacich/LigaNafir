@@ -41,15 +41,15 @@
 }
 
 .form-input,
+.input,
 .form-jugador,
 .form-camiseta {
   width: 100%;
-  max-width: 250px; /* Para centrar y evitar inputs demasiado anchos */
-  padding: 10px;
-  font-size: 1rem;
+  max-width: 300px;
+  padding: 8px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background: white;
   text-align: center;
 }
 
@@ -60,7 +60,7 @@
 
 .buscar-button,
 .agregar-button {
-  width: 80%;
+  width: 100%;
   padding: 12px;
   font-size: 1rem;
   background-color: #128c7e;
@@ -83,4 +83,10 @@
 .form-camiseta::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.jugador-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
