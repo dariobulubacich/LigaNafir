@@ -120,6 +120,7 @@ function CargaJugadores() {
         ? auth.currentUser.email
         : "Anónimo";
       const fechaGuardado = new Date().toLocaleDateString("es-ES");
+      const horaGuardado = new Date().toLocaleTimeString("es-ES"); // ⏰ Guardar la hora exacta
 
       await addDoc(collection(db, "fechasGuardadas"), {
         carnet,
@@ -134,11 +135,12 @@ function CargaJugadores() {
         torneo: torneoSeleccionado,
         usuario: usuarioActual,
         fechaGuardado,
+        horaGuardado, // Nuevo campo con la hora
       });
 
       Swal.fire({
         title: "Datos guardados correctamente",
-        text: `Jugador: ${nombre} ${apellido}, Fecha: ${numeroFecha}, Club: ${club}`,
+        text: `Jugador: ${nombre} ${apellido}, Fecha: ${numeroFecha}, Club: ${club}, Hora: ${horaGuardado}`,
         icon: "success",
       });
 
