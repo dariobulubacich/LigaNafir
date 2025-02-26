@@ -191,10 +191,7 @@ function ListarJugadores() {
           Volver al Panel de Administrador
         </button>
       </div>
-
-      {filteredJugadores.length === 0 ? (
-        <p>No hay jugadores para mostrar.</p>
-      ) : (
+      <div id="tableContainer" style={{ display: "none" }}>
         <table id="jugadoresTable" className="jugadores-table">
           <thead>
             <tr>
@@ -205,7 +202,7 @@ function ListarJugadores() {
               <th>Categoría</th>
               <th>Nº Camiseta</th>
               <th>Fecha Guardado</th>
-              <th>Torneo</th> {/* Nueva columna */}
+              <th>Torneo</th>
             </tr>
           </thead>
           <tbody>
@@ -223,16 +220,15 @@ function ListarJugadores() {
                       ? new Date(
                           jugador.fechaGuardado.seconds * 1000
                         ).toLocaleDateString("es-ES")
-                      : jugador.fechaGuardado // Si es string, lo muestra directamente
+                      : jugador.fechaGuardado
                     : "No registrado"}
                 </td>
-                <td>{jugador.torneo || "No asignado"}</td>{" "}
-                {/* Muestra el torneo */}
+                <td>{jugador.torneo || "No asignado"}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      )}
+      </div>
     </div>
   );
 }

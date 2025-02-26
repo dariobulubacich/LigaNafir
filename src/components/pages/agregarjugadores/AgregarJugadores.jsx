@@ -7,8 +7,6 @@ import {
   getDocs,
   query,
   where,
-  orderBy,
-  limit,
 } from "firebase/firestore";
 import { db, auth } from "../../../firebase"; // Importar Firebase
 import { useNavigate } from "react-router-dom";
@@ -49,6 +47,7 @@ function AgregarJugadores() {
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
+        // Si el jugador ya existe, rellenar los datos
         const jugador = querySnapshot.docs[0].data();
         setCarnet(jugador.carnet);
         setNombre(jugador.nombre);
@@ -71,21 +70,29 @@ function AgregarJugadores() {
           "info"
         );
       } else {
-        const lastCarnetQuery = query(
-          jugadoresRef,
-          orderBy("carnet", "desc"),
-          limit(1)
-        );
+        // Obtener todos los carnets y convertirlos a números
+        const lastCarnetQuery = query(jugadoresRef);
         const lastCarnetSnapshot = await getDocs(lastCarnetQuery);
-        const lastCarnetNumber = lastCarnetSnapshot.empty
-          ? 0
-          : parseInt(lastCarnetSnapshot.docs[0].data().carnet, 10);
-        setCarnet((lastCarnetNumber + 1).toString());
+
+        let maxCarnetNumber = 0;
+        lastCarnetSnapshot.forEach((doc) => {
+          const carnetStr = doc.data().carnet;
+          const carnetNum = parseInt(carnetStr, 10);
+          if (!isNaN(carnetNum) && carnetNum > maxCarnetNumber) {
+            maxCarnetNumber = carnetNum;
+          }
+        });
+
+        // Asignar un nuevo carnet
+        const nuevoCarnet = (maxCarnetNumber + 1).toString();
+        setCarnet(nuevoCarnet);
+
         Swal.fire(
           "Jugador no registrado",
-          `Se asignó el carnet ${lastCarnetNumber + 1}.`,
+          `Se asignó el carnet ${nuevoCarnet}.`,
           "success"
         );
+
         setEsJugadorExistente(false);
       }
     } catch (error) {

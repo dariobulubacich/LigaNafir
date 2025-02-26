@@ -27,7 +27,6 @@ function CargaJugadores() {
   const [condicion, setCondicion] = useState("");
   const [numeroFecha, setNumeroFecha] = useState(numeroFechaInicial);
   const [jugadorEncontrado, setJugadorEncontrado] = useState(null);
-  const [observaciones, setObservaciones] = useState(null);
 
   const [torneos, setTorneos] = useState([]);
   const [torneoSeleccionado, setTorneoSeleccionado] = useState("");
@@ -130,7 +129,6 @@ function CargaJugadores() {
         categoria,
         numeroCamiseta,
         numeroFecha,
-        observaciones,
         torneo: torneoSeleccionado,
         usuario: usuarioActual,
         fechaGuardado,
@@ -150,7 +148,6 @@ function CargaJugadores() {
       setCondicion("");
       setCategoria("");
       setNumeroCamiseta("");
-      setObservaciones("");
       setJugadorEncontrado(null);
     } catch (error) {
       console.error("Error al guardar los datos: ", error);
@@ -196,18 +193,6 @@ function CargaJugadores() {
             value={numeroFecha}
             onChange={(e) => setNumeroFecha(e.target.value)}
             required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="observaciones" className="form-label">
-            Datos del Dni
-          </label>
-          <input
-            id="observaciones"
-            type="text"
-            className="form-input"
-            value={observaciones}
-            onChange={(e) => setObservaciones(e.target.value)}
           />
         </div>
 
