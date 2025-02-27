@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* Centra todo dentro del formulario */
-  gap: 10px;
+  gap: 5px;
 }
 
 .form-title {
@@ -89,4 +89,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.cerrar-sesion-button {
+  width: 50%;
+  padding: 5px;
+  font-size: 1rem;
+  background-color: #128c7e;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }

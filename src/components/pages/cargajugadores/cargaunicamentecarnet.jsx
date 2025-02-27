@@ -9,14 +9,15 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { useLocation } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./cargajugadores.css";
 
 function CargaJugadores() {
   const location = useLocation();
   const numeroFechaInicial = location.state?.numeroFecha || "";
+  const navigate = useNavigate(); // ⬅ Hook para redireccionar después de cerrar sesión
 
   const [carnet, setCarnet] = useState("");
   const [nombre, setNombre] = useState("");
@@ -158,10 +159,29 @@ function CargaJugadores() {
       });
     }
   };
+  // Función para cerrar sesión
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      Swal.fire(
+        "Sesión cerrada",
+        "Has cerrado sesión correctamente.",
+        "success"
+      );
+      navigate("/"); // ⬅ Redirige a la página de login
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      Swal.fire("Error", "No se pudo cerrar sesión.", "error");
+    }
+  };
 
   return (
     <div className="div-carga">
       <form onSubmit={guardarDatos} className="form-container">
+        {/* Botón de Cerrar Sesión */}
+        <button onClick={handleLogout} className="cerrar-sesion-button">
+          Cerrar Sesión
+        </button>
         <h3 className="form-title">Carga de Jugadores</h3>
 
         {/* Selección del Torneo */}

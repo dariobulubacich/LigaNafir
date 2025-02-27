@@ -94,6 +94,8 @@ function ListarJugadores() {
           : jugador.fechaGuardado
         : "No registrado",
       Torneo: jugador.torneo || "No asignado",
+      Hora: jugador.horaGuardado || "No asignado",
+      Usuario: jugador.usuario || "No asignado",
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(formattedData);
@@ -108,6 +110,8 @@ function ListarJugadores() {
       "Nº Camiseta",
       "Fecha Guardado",
       "Torneo",
+      "Hora Guardada",
+      "Usuario",
     ];
 
     worksheet["!cols"] = columnsOrder.map(() => ({ wch: 20 })); // Ajuste opcional del ancho de columna
@@ -203,6 +207,8 @@ function ListarJugadores() {
               <th>Nº Camiseta</th>
               <th>Fecha Guardado</th>
               <th>Torneo</th>
+              <th>Hora Guardado</th>
+              <th>Usuario</th>
             </tr>
           </thead>
           <tbody>
@@ -224,6 +230,8 @@ function ListarJugadores() {
                     : "No registrado"}
                 </td>
                 <td>{jugador.torneo || "No asignado"}</td>
+                <td>{jugador.horaGuardado || "No registrada"}</td>
+                <td>{jugador.usuario || "Desconocido"}</td>
               </tr>
             ))}
           </tbody>

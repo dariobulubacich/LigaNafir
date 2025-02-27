@@ -4,8 +4,6 @@ import { signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-// import Grid from "@mui/material/Grid2";
-// import { Typography } from "@mui/material";
 import "./auth.css";
 
 const Login = () => {
