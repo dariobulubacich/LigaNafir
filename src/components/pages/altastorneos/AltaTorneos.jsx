@@ -47,7 +47,7 @@ const AltaTorneos = () => {
       <input
         className="input"
         type="text"
-        placeholder="Nombre del Torneo"
+        placeholder="Nombre del Torneos"
         value={nombreTorneo}
         onChange={(e) => setNombreTorneo(e.target.value)}
       />
