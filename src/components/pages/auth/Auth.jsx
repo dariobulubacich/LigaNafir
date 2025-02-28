@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, email, currentPassword); // No es necesario almacenar user aquí
+      await signInWithEmailAndPassword(auth, email, currentPassword);
 
       Swal.fire({
         icon: "success",
@@ -53,7 +53,7 @@ const Login = () => {
         email,
         currentPassword
       );
-      const user = userCredential.user; // Aquí sí usamos user
+      const user = userCredential.user;
 
       await updatePassword(user, newPassword);
 
@@ -122,27 +122,29 @@ const Login = () => {
         </button>
       </p>
 
-      <form onSubmit={handleChangePassword}>
-        <div className="password-container">
-          <input
-            type={showNewPassword ? "text" : "password"} // Usa el estado para cambiar el tipo
-            placeholder="Nueva contraseña"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
-          <button
-            type="button"
-            className="toggle-password"
-            onClick={() => setShowNewPassword(!showNewPassword)} // Cambia la visibilidad
-          >
-            {showNewPassword ? "Oculto 🔒" : "Muestra 👁"}
-          </button>
-        </div>
-        <div>
-          <button type="submit">Actualizar Contraseña</button>
-        </div>
-      </form>
+      {showChangePassword && (
+        <form onSubmit={handleChangePassword}>
+          <div className="password-container">
+            <input
+              type={showNewPassword ? "text" : "password"}
+              placeholder="Nueva contraseña"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowNewPassword(!showNewPassword)}
+            >
+              {showNewPassword ? "Oculto 🔒" : "Muestra 👁"}
+            </button>
+          </div>
+          <div>
+            <button type="submit">Actualizar Contraseña</button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };
