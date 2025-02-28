@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
-import { db } from "../firebase";
+import { db } from "../../../firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 const ImportarExcel = () => {

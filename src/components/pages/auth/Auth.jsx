@@ -1,48 +1,36 @@
 import { useState } from "react";
-import { auth, db } from "../../../firebase"; // Importa tu configuración de Firebase
+import { auth } from "../../../firebase";
 import { signInWithEmailAndPassword, updatePassword } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./auth.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
-  const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
     try {
-      // Inicio de sesión
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
+      await signInWithEmailAndPassword(auth, email, currentPassword); // No es necesario almacenar user aquí
 
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      if (userDoc.exists()) {
-        const role = userDoc.data().role;
-        if (role === "admin") {
-          navigate("/admin-dashboard");
-        } else {
-          navigate("/CargaJugadores");
-        }
-      } else {
-        throw new Error("El usuario no tiene datos asociados en Firestore");
-      }
+      Swal.fire({
+        icon: "success",
+
+        text: "Puedes cambiar tu contraseña ahora.",
+      });
+
+      navigate("/CargaJugadores");
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Error",
+        title: "Error al iniciar sesión",
         text: error.message,
       });
     }
@@ -51,34 +39,37 @@ const Login = () => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
 
-    if (!newPassword) {
+    if (!email || !currentPassword || !newPassword) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Debes ingresar una nueva contraseña.",
+        text: "Todos los campos son obligatorios.",
       });
       return;
     }
 
     try {
-      const user = auth.currentUser;
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        currentPassword
+      );
+      const user = userCredential.user; // Aquí sí usamos user
 
-      if (user) {
-        await updatePassword(user, newPassword);
-        Swal.fire({
-          icon: "success",
-          title: "Éxito",
-          text: "Contraseña actualizada correctamente.",
-        });
-        setNewPassword("");
-        setShowChangePassword(false);
-      } else {
-        throw new Error("No se pudo autenticar al usuario.");
-      }
+      await updatePassword(user, newPassword);
+
+      Swal.fire({
+        icon: "success",
+        title: "Contraseña cambiada",
+        text: "Tu contraseña se actualizó correctamente.",
+      });
+
+      setNewPassword("");
+      setShowChangePassword(false);
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Error al cambiar contraseña",
+        title: "Error al cambiar la contraseña",
         text: error.message,
       });
     }
@@ -105,10 +96,10 @@ const Login = () => {
         <div className="password-container">
           <input
             className="input-aut"
-            type={showPassword ? "text" : "password"} // Cambia dinámicamente el tipo
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type={showPassword ? "text" : "password"}
+            placeholder="Contraseña actual"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
             required
           />
           <button
@@ -119,17 +110,19 @@ const Login = () => {
             {showPassword ? "Oculto 🔒" : "Muestra 👁"}
           </button>
         </div>
+
         <div>
           <button type="submit">Iniciar Sesión</button>
         </div>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+
       <p>
-        ¿Olvidaste tu contraseña?{" "}
+        ¿Quieres cambiar tu contraseña?{" "}
         <button onClick={() => setShowChangePassword(!showChangePassword)}>
           Cambiar contraseña
         </button>
       </p>
+
       {showChangePassword && (
         <form onSubmit={handleChangePassword}>
           <div className="password-container">
@@ -142,7 +135,7 @@ const Login = () => {
             />
           </div>
           <div>
-            <button type="submit">Cambiar Contraseña</button>
+            <button type="submit">Actualizar Contraseña</button>
           </div>
         </form>
       )}

@@ -7,12 +7,14 @@ import ListarJugadores from "./components/pages/listados/ListarJugadores";
 import Carnets from "./components/pages/carnets/Carnets";
 import BuscarModificarJugadores from "./components/pages/buscarjugadores/BuscarJugadores";
 import RegisterUser from "./components/pages/registeruser/RegisterUser";
-import ImportarExcel from "./importarexcel/ImportarExcel";
+import ImportarExcel from "../src/components/pages/importarexcel/ImportarExcel";
 import AgregarClubes from "./components/pages/agregarclubes/AgregarClubes";
 import AltaTorneos from "./components/pages/altastorneos/AltaTorneos";
 import ListaClubes from "./components/pages/listaclubes/ListaClubes";
 import ListadosGenerales from "./components/pages/listadosgenerales/ListadosGenerales";
 import Altas from "./components/pages/altas/Altas";
+import PorcentajeJuego from "./components/pages/porcentajejuego/PorcentajeJuego";
+
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +33,7 @@ function App() {
         <Route path="/ListaClubes" element={<ListaClubes />} />{" "}
         <Route path="/ListadosGenerales" element={<ListadosGenerales />} />{" "}
         <Route path="/Altas" element={<Altas />} />{" "}
+        <Route path="/PorcentajeJuego" element={<PorcentajeJuego />} />{" "}
       </Routes>
     </BrowserRouter>
   );

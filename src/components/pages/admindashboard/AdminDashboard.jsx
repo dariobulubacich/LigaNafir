@@ -38,6 +38,9 @@ const AdminDashboard = () => {
               </button>
             </li>
             <li>
+              <button onClick={() => navigate("/PorcentajeJuego")}>65 %</button>
+            </li>
+            <li>
               <button onClick={() => navigate("/RegisterUser")}>
                 Registrar Usuarios
               </button>
