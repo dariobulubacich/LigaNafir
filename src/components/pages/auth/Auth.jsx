@@ -11,6 +11,7 @@ const Login = () => {
   const [newPassword, setNewPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false); // Nuevo estado
 
   const navigate = useNavigate();
 
@@ -22,8 +23,6 @@ const Login = () => {
 
       Swal.fire({
         icon: "success",
-
-        text: "Puedes cambiar tu contraseña ahora.",
       });
 
       navigate("/CargaJugadores");
@@ -123,22 +122,27 @@ const Login = () => {
         </button>
       </p>
 
-      {showChangePassword && (
-        <form onSubmit={handleChangePassword}>
-          <div className="password-container">
-            <input
-              type="password"
-              placeholder="Nueva contraseña"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <button type="submit">Actualizar Contraseña</button>
-          </div>
-        </form>
-      )}
+      <form onSubmit={handleChangePassword}>
+        <div className="password-container">
+          <input
+            type={showNewPassword ? "text" : "password"} // Usa el estado para cambiar el tipo
+            placeholder="Nueva contraseña"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() => setShowNewPassword(!showNewPassword)} // Cambia la visibilidad
+          >
+            {showNewPassword ? "Oculto 🔒" : "Muestra 👁"}
+          </button>
+        </div>
+        <div>
+          <button type="submit">Actualizar Contraseña</button>
+        </div>
+      </form>
     </div>
   );
 };
