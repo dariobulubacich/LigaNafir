@@ -21,10 +21,6 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, currentPassword);
 
-      Swal.fire({
-        icon: "success",
-      });
-
       navigate("/CargaJugadores");
     } catch (error) {
       Swal.fire({
