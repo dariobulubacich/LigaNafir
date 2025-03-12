@@ -141,7 +141,7 @@ function CargaJugadores() {
 
       Swal.fire({
         title: "Datos guardados correctamente",
-        text: `Jugador: ${nombre} ${apellido}, Fecha: ${numeroFecha}, Club: ${club}, Hora: ${horaGuardado}`,
+        text: `Jugador: ${nombre} ${apellido}, Fecha: ${numeroFecha}, Club: ${club}, Hora: ${horaGuardado}, Observaciones:${observaciones}`,
         icon: "success",
       });
 

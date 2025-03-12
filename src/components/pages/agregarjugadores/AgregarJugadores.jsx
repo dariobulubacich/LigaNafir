@@ -105,9 +105,15 @@ function AgregarJugadores() {
     const fetchClubes = async () => {
       const clubesRef = collection(db, "clubes");
       const clubesSnapshot = await getDocs(clubesRef);
-      const clubesList = clubesSnapshot.docs.map((doc) => doc.data().nombre);
+
+      // Obtener los nombres de los clubes y ordenarlos alfabéticamente
+      const clubesList = clubesSnapshot.docs
+        .map((doc) => doc.data().nombre)
+        .sort((a, b) => a.localeCompare(b)); // Ordenar alfabéticamente
+
       setClubes(clubesList);
     };
+
     fetchClubes();
   }, []);
 

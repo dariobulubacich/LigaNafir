@@ -121,6 +121,9 @@ function BuscarModificarJugadores() {
             <strong>Club:</strong> {jugador.club}
           </p>
           <p>
+            <strong>Club Anterior:</strong> {jugador.clubAnterior}
+          </p>
+          <p>
             <strong>Condición:</strong>{" "}
             {jugador.habilitado ? "Habilitado" : "Inhabilitado"}
           </p>

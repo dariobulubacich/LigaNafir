@@ -41,6 +41,16 @@ const AdminDashboard = () => {
               <button onClick={() => navigate("/PorcentajeJuego")}>65 %</button>
             </li>
             <li>
+              <button onClick={() => navigate("/CambiarClubMasivo")}>
+                Cambiar Club Masivamente
+              </button>
+            </li>
+            <li>
+              <button onClick={() => navigate("/FiltrosFechasGuardadas")}>
+                Filtros Fechas
+              </button>
+            </li>
+            <li>
               <button onClick={() => navigate("/RegisterUser")}>
                 Registrar Usuarios
               </button>

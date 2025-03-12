@@ -95,6 +95,7 @@ function ListarJugadores() {
         : "No registrado",
       Torneo: jugador.torneo || "No asignado",
       Hora: jugador.horaGuardado || "No asignado",
+      Observaciones: jugador.observaciones || "No asignado",
       Usuario: jugador.usuario || "No asignado",
     }));
 
@@ -111,6 +112,7 @@ function ListarJugadores() {
       "Fecha Guardado",
       "Torneo",
       "Hora Guardada",
+      "Observaciones",
       "Usuario",
     ];
 
