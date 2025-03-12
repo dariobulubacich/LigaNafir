@@ -114,7 +114,7 @@ function FiltrosFechasGuardadas() {
             <ul>
               {jugadoresFiltrados.map((jugador, index) => (
                 <li key={index}>
-                  {`${jugador.nombre} ${jugador.apellido} - ${jugador.club} - ${jugador.categoria} - ${jugador.horaGuardado}`}
+                  {`${jugador.numeroCamiseta} -${jugador.nombre} ${jugador.apellido} - ${jugador.club} - ${jugador.categoria}- ${jugador.horaGuardado}`}
                 </li>
               ))}
             </ul>

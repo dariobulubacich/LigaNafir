@@ -1,5 +1,5 @@
 .contenedor {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
@@ -37,7 +37,7 @@ select {
   background-color: #e3f2fd;
   border: 1px solid #90caf9;
   border-radius: 5px;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 5px;
 }
 
