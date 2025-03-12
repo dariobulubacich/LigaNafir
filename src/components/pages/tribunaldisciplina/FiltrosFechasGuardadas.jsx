@@ -119,7 +119,9 @@ function FiltrosFechasGuardadas() {
               ))}
             </ul>
           ) : (
-            <p>No se encontraron jugadores en ese rango de tiempo.</p>
+            <p className="parrafo-tribunal">
+              No se encontraron jugadores en ese rango de tiempo.
+            </p>
           )}
         </>
       )}
