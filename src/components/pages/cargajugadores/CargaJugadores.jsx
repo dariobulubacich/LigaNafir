@@ -183,6 +183,7 @@ function CargaJugadores() {
 
   return (
     <div className="div-carga">
+      <p className="copiright">Copyright Liga Nafir</p>
       <form onSubmit={guardarDatos} className="form-container">
         {/* Botón de Cerrar Sesión */}
         <button onClick={handleLogout} className="cerrar-sesion-button">

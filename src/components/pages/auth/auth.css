@@ -60,3 +60,15 @@
   border: none;
   font-size: 14px;
 } */
+.copiright {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg); /* Gira el texto */
+  font-size: 3rem; /* Tamaño grande para la marca de agua */
+  color: rgba(0, 0, 0, 0.2); /* Efecto de marca de agua */
+  font-weight: bold;
+  white-space: nowrap; /* Evita que se corte el texto */
+  z-index: -1; /* Detrás del resto del contenido */
+  pointer-events: none; /* No bloquea clics */
+}

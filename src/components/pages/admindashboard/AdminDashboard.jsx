@@ -50,6 +50,7 @@ const AdminDashboard = () => {
                 Filtros Fechas
               </button>
             </li>
+
             <li>
               <button onClick={() => navigate("/RegisterUser")}>
                 Registrar Usuarios

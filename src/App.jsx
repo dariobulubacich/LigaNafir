@@ -14,8 +14,8 @@ import ListaClubes from "./components/pages/listaclubes/ListaClubes";
 import ListadosGenerales from "./components/pages/listadosgenerales/ListadosGenerales";
 import Altas from "./components/pages/altas/Altas";
 import PorcentajeJuego from "./components/pages/porcentajejuego/PorcentajeJuego";
-import CambiarClubMasivo from "./components/pages/cambiarclubmasivo/CambiarClubMasivo";
 import FiltrosFechasGuardadas from "./components/pages/tribunaldisciplina/FiltrosFechasGuardadas";
+import CambiarNumeroCarnetMasivo from "./components/pages/cambiarnumerocarnet/CambiarNumeroCarnetMasivo";
 
 function App() {
   return (
@@ -36,7 +36,10 @@ function App() {
         <Route path="/ListadosGenerales" element={<ListadosGenerales />} />{" "}
         <Route path="/Altas" element={<Altas />} />{" "}
         <Route path="/PorcentajeJuego" element={<PorcentajeJuego />} />{" "}
-        <Route path="/CambiarClubMasivo" element={<CambiarClubMasivo />} />{" "}
+        <Route
+          path="/CambiarNumeroCarnetMasivo"
+          element={<CambiarNumeroCarnetMasivo />}
+        />{" "}
         <Route
           path="/FiltrosFechasGuardadas"
           element={<FiltrosFechasGuardadas />}

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import { signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import "./auth.css";
 
@@ -20,12 +21,27 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, currentPassword);
-
-      navigate("/CargaJugadores");
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        currentPassword
+      );
+      const user = userCredential.user; // Aquí defines la variable 'user'
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const role = userDoc.data().role;
+        if (role === "admin") {
+          navigate("/admin-dashboard");
+        } else {
+          navigate("/cargajugadores");
+        }
+      } else {
+        throw new Error("El usuario no tiene datos asociados en Firestore");
+      }
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Error al iniciar sesión",
+        title: "Error",
         text: error.message,
       });
     }
@@ -72,6 +88,7 @@ const Login = () => {
 
   return (
     <div className="div-liga">
+      <p className="copiright">Copyright Liga Nafir</p>
       <p style={{ fontSize: "2.5rem" }}>Liga Nafir</p>
       <div className="parrafo-iniciosesion">
         <p style={{ fontSize: "1.5rem" }}>Inicio de Sesión</p>
