@@ -1,0 +1,100 @@
+.gestion-categorias-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.h3-gestion {
+  color: white;
+}
+
+.categoria-inputs,
+.categoria-seleccion,
+.subcategorias-container {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  padding: 10px;
+  margin-right: 10px;
+  width: 100%;
+  max-width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.select-field {
+  padding: 10px;
+  margin-right: 10px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.btn-danger {
+  background-color: #f44336;
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+.btn-success {
+  background-color: #4caf50;
+}
+
+.btn-success:hover {
+  background-color: #388e3c;
+}
+
+.subcategorias-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.subcategoria-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.subcategoria-input {
+  flex: 1;
+}
+
+.go-back-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.volver-button {
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.volver-button:hover {
+  background-color: #1976d2;
+}

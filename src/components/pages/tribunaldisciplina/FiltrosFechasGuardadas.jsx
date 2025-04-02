@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import { db } from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import "./FiltrosFechasGuardadas.css";
+import { useNavigate } from "react-router-dom";
 
 function FiltrosFechasGuardadas() {
   const [clubes, setClubes] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [filtroClub, setFiltroClub] = useState("");
   const [filtroCategoria, setFiltroCategoria] = useState("");
+  const [filtroNumeroFecha, setFiltroNumeroFecha] = useState("");
   const [jugadores, setJugadores] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -25,8 +28,8 @@ function FiltrosFechasGuardadas() {
           jugadoresList.push(data);
         });
 
-        setClubes([...clubesSet]);
-        setCategorias([...categoriasSet]);
+        setClubes([...clubesSet].sort());
+        setCategorias([...categoriasSet].sort((a, b) => b - a));
         setJugadores(jugadoresList);
       } catch (error) {
         console.error("Error al obtener datos: ", error);
@@ -36,7 +39,6 @@ function FiltrosFechasGuardadas() {
     obtenerDatos();
   }, []);
 
-  // Función para convertir "HH:mm:ss" a milisegundos desde la medianoche
   const convertirHoraAMilisegundos = (hora) => {
     if (!hora) return null;
     const [hh, mm, ss] = hora.split(":").map(Number);
@@ -44,23 +46,23 @@ function FiltrosFechasGuardadas() {
   };
 
   const filtrarJugadores = () => {
-    if (!filtroClub || !filtroCategoria) return [];
+    let filtrados = jugadores.filter(
+      (j) =>
+        j.club === filtroClub &&
+        j.categoria === filtroCategoria &&
+        (!filtroNumeroFecha || j.numeroFecha === filtroNumeroFecha)
+    );
 
-    // Filtra jugadores del club y categoría seleccionados
-    const jugadoresCategoria = jugadores
-      .filter((j) => j.club === filtroClub && j.categoria === filtroCategoria)
-      .map((j) => ({
-        ...j,
-        horaMilisegundos: convertirHoraAMilisegundos(j.horaGuardado),
-      }))
-      .sort((a, b) => a.horaMilisegundos - b.horaMilisegundos);
+    filtrados = filtrados.map((j) => ({
+      ...j,
+      horaMilisegundos: convertirHoraAMilisegundos(j.horaGuardado),
+    }));
 
-    if (jugadoresCategoria.length === 0) return [];
+    if (filtrados.length === 0) return [];
 
-    const primerTimestamp = jugadoresCategoria[0].horaMilisegundos;
-    const limiteTimestamp = primerTimestamp + 10 * 60 * 1000;
+    const primerTimestamp = filtrados[0].horaMilisegundos;
+    const limiteTimestamp = primerTimestamp + 5 * 60 * 1000;
 
-    // Filtra todos los jugadores del club dentro del rango de 10 minutos
     return jugadores
       .filter((j) => j.club === filtroClub)
       .map((j) => ({
@@ -71,14 +73,15 @@ function FiltrosFechasGuardadas() {
         (j) =>
           j.horaMilisegundos >= primerTimestamp &&
           j.horaMilisegundos <= limiteTimestamp
-      );
+      )
+      .sort((a, b) => a.numeroCamiseta - b.numeroCamiseta);
   };
 
   const jugadoresFiltrados = filtrarJugadores();
 
   return (
     <div className="contenedor">
-      <h2>Filtrar Jugadores</h2>
+      <h2 className="h2-fechas">Filtrar Jugadores</h2>
       <div className="filtros">
         <label>Seleccionar Club:</label>
         <select
@@ -107,6 +110,14 @@ function FiltrosFechasGuardadas() {
           ))}
         </select>
       </div>
+      <div className="filtros">
+        <label>Filtrar por Número de Fecha:</label>
+        <input
+          type="number"
+          value={filtroNumeroFecha}
+          onChange={(e) => setFiltroNumeroFecha(e.target.value)}
+        />
+      </div>
       {filtroClub && filtroCategoria && (
         <>
           <h3>Lista de Jugadores</h3>
@@ -114,7 +125,7 @@ function FiltrosFechasGuardadas() {
             <ul>
               {jugadoresFiltrados.map((jugador, index) => (
                 <li key={index}>
-                  {`${jugador.numeroCamiseta} -${jugador.nombre} ${jugador.apellido} - ${jugador.club} - ${jugador.categoria}- ${jugador.horaGuardado}`}
+                  {`${jugador.numeroCamiseta} - ${jugador.nombre} ${jugador.apellido} - ${jugador.club} - ${jugador.categoria} - ${jugador.horaGuardado}`}
                 </li>
               ))}
             </ul>
@@ -125,6 +136,9 @@ function FiltrosFechasGuardadas() {
           )}
         </>
       )}
+      <button className="buttons" onClick={() => navigate("/admin-dashboard")}>
+        Panel de Administrador
+      </button>
     </div>
   );
 }

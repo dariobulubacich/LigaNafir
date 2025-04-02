@@ -2,9 +2,12 @@ import { useState } from "react";
 import AgregarClubes from "../agregarclubes/AgregarClubes";
 import AgregarJugadores from "../agregarjugadores/AgregarJugadores";
 import AltaTorneos from "../altastorneos/AltaTorneos";
+import { useNavigate } from "react-router-dom";
+import GestionCategorias from "../gestioncategorias/GestionCategorias";
 
 function ListadosGenerales() {
   const [mostrarComponente, setMostrarComponente] = useState(null);
+  const navigate = useNavigate();
 
   const ClickBotonAgregarJugadores = () => {
     setMostrarComponente("jugadores"); // Mostrar solo AgregarJugadores
@@ -15,6 +18,14 @@ function ListadosGenerales() {
   };
   const ClickBotonAltaToneos = () => {
     setMostrarComponente("torneos"); // Mostrar solo AltaTorneos
+  };
+  const ClickBotonGestionCategorias = () => {
+    setMostrarComponente("gestioncategorias"); // Mostrar solo AltaTorneos
+  };
+
+  // Función para navegar al AdminDashboard
+  const goToExportFechasExcel = () => {
+    navigate("/admin-dashboard");
   };
 
   return (
@@ -41,6 +52,12 @@ function ListadosGenerales() {
           >
             Altas Torneos
           </button>
+          <button
+            className="button-notificaciones"
+            onClick={ClickBotonGestionCategorias}
+          >
+            Gestion Categorias Femenino
+          </button>
         </div>
       )}
 
@@ -48,6 +65,10 @@ function ListadosGenerales() {
       {mostrarComponente === "jugadores" && <AgregarJugadores />}
       {mostrarComponente === "clubes" && <AgregarClubes />}
       {mostrarComponente === "torneos" && <AltaTorneos />}
+      {mostrarComponente === "gestioncategorias" && <GestionCategorias />}
+      <button className="volver-button" onClick={goToExportFechasExcel}>
+        Volver al Panel de Admin
+      </button>
     </div>
   );
 }

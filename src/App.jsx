@@ -15,8 +15,8 @@ import ListadosGenerales from "./components/pages/listadosgenerales/ListadosGene
 import Altas from "./components/pages/altas/Altas";
 import PorcentajeJuego from "./components/pages/porcentajejuego/PorcentajeJuego";
 import FiltrosFechasGuardadas from "./components/pages/tribunaldisciplina/FiltrosFechasGuardadas";
-import CambiarNumeroCarnetMasivo from "./components/pages/cambiarnumerocarnet/CambiarNumeroCarnetMasivo";
-
+import CambiarClubMasivo from "./components/pages/cambiarclubmasivo/CambiarClubMasivo";
+import GestionCategorias from "./components/pages/gestioncategorias/GestionCategorias";
 function App() {
   return (
     <BrowserRouter>
@@ -36,10 +36,8 @@ function App() {
         <Route path="/ListadosGenerales" element={<ListadosGenerales />} />{" "}
         <Route path="/Altas" element={<Altas />} />{" "}
         <Route path="/PorcentajeJuego" element={<PorcentajeJuego />} />{" "}
-        <Route
-          path="/CambiarNumeroCarnetMasivo"
-          element={<CambiarNumeroCarnetMasivo />}
-        />{" "}
+        <Route path="/CambiarClubMasivo" element={<CambiarClubMasivo />} />{" "}
+        <Route path="/GestionCategorias" element={<GestionCategorias />} />{" "}
         <Route
           path="/FiltrosFechasGuardadas"
           element={<FiltrosFechasGuardadas />}

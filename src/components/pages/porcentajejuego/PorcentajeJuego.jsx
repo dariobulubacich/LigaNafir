@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { db } from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import * as XLSX from "xlsx"; // Importamos la librería
 import "./porcentajejuego.css";
 
 function PorcentajeJuego() {
@@ -81,11 +82,30 @@ function PorcentajeJuego() {
       (clubSeleccionado === "" || jugador.club === clubSeleccionado)
   );
 
+  // Función para exportar datos a Excel
+  const exportarExcel = () => {
+    const datosParaExportar = jugadoresFiltrados.map((jugador) => ({
+      Carnet: jugador.carnet,
+      Nombre: jugador.nombre,
+      Apellido: jugador.apellido,
+      Club: jugador.club,
+      Categoría: jugador.categoria,
+      "Fechas Jugadas": jugador.totalFechas,
+      "Porcentaje de Juego": `${jugador.porcentaje}%`,
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(datosParaExportar);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Porcentaje de Juego");
+
+    XLSX.writeFile(wb, "Porcentaje_Juego.xlsx");
+  };
+
   return (
     <div className="estadisticas-container">
       <h3>Porcentaje de Juego por Jugador</h3>
 
-      <label>Total de Fechas del Torneo:</label>
+      <label>Fechas del Torneo:</label>
       <input
         type="number"
         value={totalFechas}
@@ -124,6 +144,10 @@ function PorcentajeJuego() {
           ))}
         </select>
       </div>
+
+      <button className="export-button" onClick={exportarExcel}>
+        📥 Exportar a Excel
+      </button>
 
       <ul className="jugadores-list">
         {jugadoresFiltrados.map((jugador) => (

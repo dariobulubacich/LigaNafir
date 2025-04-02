@@ -29,7 +29,7 @@ function CargaJugadores() {
   const [numeroFecha, setNumeroFecha] = useState(numeroFechaInicial);
   const [jugadorEncontrado, setJugadorEncontrado] = useState(null);
   const [observaciones, setObservaciones] = useState(null);
-
+  const [tipoJugador, setTipoJugador] = useState("");
   const [torneos, setTorneos] = useState([]);
   const [torneoSeleccionado, setTorneoSeleccionado] = useState("");
 
@@ -133,6 +133,7 @@ function CargaJugadores() {
         numeroCamiseta,
         numeroFecha,
         observaciones,
+        tipoJugador,
         torneo: torneoSeleccionado,
         usuario: usuarioActual,
         fechaGuardado,
@@ -221,6 +222,19 @@ function CargaJugadores() {
             onChange={(e) => setNumeroFecha(e.target.value)}
             required
           />
+        </div>
+        <div className="form-group">
+          <label className="form-label">Tipo de Jugador</label>
+          <select
+            className="input"
+            value={tipoJugador}
+            onChange={(e) => setTipoJugador(e.target.value)}
+            required
+          >
+            <option value="">-- Selecciona --</option>
+            <option value="Titular">Titular</option>
+            <option value="Suplente">Suplente</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="observaciones" className="form-label">

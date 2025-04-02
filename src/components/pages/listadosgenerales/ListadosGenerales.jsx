@@ -1,22 +1,31 @@
 import { useState } from "react";
-import ListarJugadores from "../listados/ListarJugadores";
+import { useNavigate } from "react-router-dom";
 import ListaClubes from "../listaclubes/ListaClubes";
+import ExportFechasExcel from "../exportarfechasjugadas/ExportFechasExcel";
 
 function ListadosGenerales() {
-  const [mostrarListarJugadores, setMostrarListarJugadores] = useState(false);
   const [mostrarListaClubes, setMostrarListaClubes] = useState(false);
+  const [mostrarExportFechasExcel, setMostrarExportFechasExcel] =
+    useState(false);
+  const navigate = useNavigate();
 
-  const ClickBotonListarJugadores = () => {
-    setMostrarListarJugadores(true); // Mostrar el componente cuando se haga clic
-  };
   const ClickBotonListaClubes = () => {
-    setMostrarListaClubes(true); // Mostrar el componente cuando se haga clic
+    setMostrarListaClubes(true);
   };
-  const cerrarListarJugadores = () => {
-    setMostrarListarJugadores(false); // Ocultar el componente cuando se cierre
+  const ClickBotonExportarFechasExcel = () => {
+    setMostrarExportFechasExcel(true);
+  };
+
+  const cerrarExportFechasExcel = () => {
+    setMostrarExportFechasExcel(false);
   };
   const cerrarListaClubes = () => {
-    setMostrarListaClubes(false); // Ocultar el componente cuando se cierre
+    setMostrarListaClubes(false);
+  };
+
+  // Función para navegar al AdminDashboard
+  const goToAdminDashboard = () => {
+    navigate("/admin-dashboard");
   };
 
   return (
@@ -25,41 +34,44 @@ function ListadosGenerales() {
         <h1>Gestión de Listados</h1>
       </div>
       <div className="div-barra">
-        {/* Botón para abrir el componente */}
-        <button
-          className="button-notificaciones"
-          onClick={ClickBotonListarJugadores}
-        >
-          Listar Jugadores
-        </button>
+        {!mostrarExportFechasExcel && (
+          <button
+            className="button-notificaciones"
+            onClick={ClickBotonExportarFechasExcel}
+          >
+            Exportar Fechas Jugadas
+          </button>
+        )}
 
-        {/* Mostrar el componente EnviarMensajes cuando el estado sea true */}
-        {mostrarListarJugadores && (
+        {mostrarExportFechasExcel && (
           <div className="style-div">
-            <button className="button-cerrar" onClick={cerrarListarJugadores}>
+            <ExportFechasExcel />
+            <button className="button-cerrar" onClick={cerrarExportFechasExcel}>
               Cerrar
             </button>
-            <ListarJugadores />
           </div>
         )}
 
-        {/* Botón para abrir el componente */}
-        <button
-          className="button-notificaciones"
-          onClick={ClickBotonListaClubes}
-        >
-          Listar Clubes
-        </button>
+        {!mostrarExportFechasExcel && !mostrarListaClubes && (
+          <button
+            className="button-notificaciones"
+            onClick={ClickBotonListaClubes}
+          >
+            Listar Clubes
+          </button>
+        )}
 
-        {/* Mostrar el componente EnviarMensajes cuando el estado sea true */}
         {mostrarListaClubes && (
           <div className="style-div">
+            <ListaClubes />
             <button className="button-cerrar" onClick={cerrarListaClubes}>
               Cerrar
             </button>
-            <ListaClubes />
           </div>
         )}
+      </div>
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <button onClick={goToAdminDashboard}>Volver al Panel de Admin</button>
       </div>
     </div>
   );
