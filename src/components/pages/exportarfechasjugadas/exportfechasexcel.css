@@ -107,3 +107,11 @@ tbody tr:hover {
   font-size: 15px;
   width: 120px;
 }
+
+@media (min-width: 768px) {
+  .div-exportf {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
