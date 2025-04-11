@@ -144,43 +144,41 @@ const ExportFechasExcel = () => {
       <table className="table-auto w-full border border-gray-300">
         <thead>
           <tr>
-            <th className="border px-4 py-2">Carnet</th>
-            <th className="border px-4 py-2">Apellido</th>
-            <th className="border px-4 py-2">Nombre</th>
-            <th className="border px-4 py-2">Categoría</th>
-            <th className="border px-4 py-2">Club</th>
-            <th className="border px-4 py-2">N° Camiseta</th>
-            <th className="border px-4 py-2">Titular-Suplente</th>
-            <th className="border px-4 py-2">Condición</th>
-            <th className="border px-4 py-2">Fecha Guardado</th>
-            <th className="border px-4 py-2">Hora Guardado</th>
-            <th className="border px-4 py-2">N° Fecha</th>
-            <th className="border px-4 py-2">Observaciones</th>
-            <th className="border px-4 py-2">Torneo</th>
-            <th className="border px-4 py-2">Usuario</th>
+            <th className="th-exportf">Carnet</th>
+            <th className="th-exportf">Apellido</th>
+            <th className="th-exportf">Nombre</th>
+            <th className="th-exportf">Categoría</th>
+            <th className="th-exportf">Club</th>
+            <th className="th-exportf">N° Camiseta</th>
+            <th className="th-exportf">Titular-Suplente</th>
+            <th className="th-exportf">Condición</th>
+            <th className="th-exportf">Fecha Guardado</th>
+            <th className="th-exportf">Hora Guardado</th>
+            <th className="th-exportf">N° Fecha</th>
+            <th className="th-exportf">Observaciones</th>
+            <th className="th-exportf">Torneo</th>
+            <th className="th-exportf">Usuario</th>
           </tr>
         </thead>
         <tbody>
           {fechasFiltradas.slice(0, 5).map((fecha) => (
             <tr key={fecha.id} className="border">
-              <td className="border px-4 py-2">{fecha.carnet || "-"}</td>
-              <td className="border px-4 py-2">{fecha.apellido || "-"}</td>
-              <td className="border px-4 py-2">{fecha.nombre || "-"}</td>
-              <td className="border px-4 py-2">{fecha.categoria || "-"}</td>
-              <td className="border px-4 py-2">{fecha.club || "-"}</td>
-              <td className="border px-4 py-2">
-                {fecha.numeroCamiseta || "-"}
-              </td>
-              <td className="border px-4 py-2">{fecha.tipoJugador || "-"}</td>
-              <td className="border px-4 py-2">{fecha.condicion || "-"}</td>
-              <td className="border px-4 py-2">{fecha.fechaGuardado || "-"}</td>
-              <td className="border px-4 py-2">{fecha.horaGuardado || "-"}</td>
-              <td className="border px-4 py-2">{fecha.numeroFecha || "-"}</td>
-              <td className="border px-4 py-2">{fecha.observaciones || "-"}</td>
-              <td className="border px-4 py-2">
+              <td className="td-exportf">{fecha.carnet || "-"}</td>
+              <td className="td-exportf">{fecha.apellido || "-"}</td>
+              <td className="td-exportf">{fecha.nombre || "-"}</td>
+              <td className="td-exportf">{fecha.categoria || "-"}</td>
+              <td className="td-exportf">{fecha.club || "-"}</td>
+              <td className="td-exportf">{fecha.numeroCamiseta || "-"}</td>
+              <td className="td-exportf">{fecha.tipoJugador || "-"}</td>
+              <td className="td-exportf">{fecha.condicion || "-"}</td>
+              <td className="td-exportf">{fecha.fechaGuardado || "-"}</td>
+              <td className="td-exportf">{fecha.horaGuardado || "-"}</td>
+              <td className="td-exportf">{fecha.numeroFecha || "-"}</td>
+              <td className="td-exportf">{fecha.observaciones || "-"}</td>
+              <td className="td-exportf">
                 {torneos[fecha.torneo] || fecha.torneo}
               </td>
-              <td className="border px-4 py-2">{fecha.usuario || "-"}</td>
+              <td className="td-exportf">{fecha.usuario || "-"}</td>
             </tr>
           ))}
         </tbody>

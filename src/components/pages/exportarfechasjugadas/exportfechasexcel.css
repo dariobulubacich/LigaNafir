@@ -1,5 +1,5 @@
 .container-exportf {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   background-color: #acaaaa;
@@ -36,17 +36,17 @@
   background-color: white;
 }
 
-.th-exportf,
 .td-exportf {
   padding: 3px;
-  border: 1px solid #ddd;
   text-align: center;
+  font-size: 10px;
 }
 
 .th-exportf {
   background-color: #007bff;
   color: white;
   font-weight: bold;
+  font-size: 11px;
 }
 
 .tbody-exportf tr:nth-child(even) {
@@ -106,12 +106,4 @@ tbody tr:hover {
 .imput-export {
   font-size: 15px;
   width: 120px;
-}
-
-@media (min-width: 768px) {
-  .div-exportf {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
 }
