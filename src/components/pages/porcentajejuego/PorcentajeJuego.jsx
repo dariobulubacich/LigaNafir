@@ -3,6 +3,7 @@ import { db } from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import * as XLSX from "xlsx"; // Importamos la librería
 import "./porcentajejuego.css";
+import { useNavigate } from "react-router-dom";
 
 function PorcentajeJuego() {
   const [jugadores, setJugadores] = useState([]);
@@ -12,6 +13,7 @@ function PorcentajeJuego() {
   const [clubes, setClubes] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
   const [clubSeleccionado, setClubSeleccionado] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJugadores = async () => {
@@ -101,6 +103,11 @@ function PorcentajeJuego() {
     XLSX.writeFile(wb, "Porcentaje_Juego.xlsx");
   };
 
+  // Función para navegar al AdminDashboard
+  const goToAdminDashboard = () => {
+    navigate("/admin-dashboard");
+  };
+
   return (
     <div className="estadisticas-container">
       <h3>Porcentaje de Juego por Jugador</h3>
@@ -148,6 +155,15 @@ function PorcentajeJuego() {
       <button className="export-button" onClick={exportarExcel}>
         📥 Exportar a Excel
       </button>
+
+      <div>
+        <button
+          className="volver-button-porcentaje"
+          onClick={goToAdminDashboard}
+        >
+          Panel de Administrador
+        </button>
+      </div>
 
       <ul className="jugadores-list">
         {jugadoresFiltrados.map((jugador) => (

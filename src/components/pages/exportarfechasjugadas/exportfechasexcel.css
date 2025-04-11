@@ -8,6 +8,8 @@
 }
 
 .h2-exportf {
+  max-width: 100%;
+  width: 100%;
   text-align: center;
   color: #333;
   font-size: 24px;
@@ -93,6 +95,7 @@ tbody tr:hover {
 .div-exportf {
   display: flex;
   gap: 30px;
+  width: 100%;
 }
 
 .select-export {

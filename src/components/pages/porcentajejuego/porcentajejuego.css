@@ -72,3 +72,11 @@ strong {
 .export-button:hover {
   background-color: #218838;
 }
+
+.volver-button-porcentaje {
+  background-color: #28a745;
+}
+
+.volver-button-porcentaje:hover {
+  background-color: #218838;
+}
